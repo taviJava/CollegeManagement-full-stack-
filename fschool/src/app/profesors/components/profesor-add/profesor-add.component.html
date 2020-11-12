@@ -1,0 +1,32 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #profesorAdd="ngForm" [formGroup]= myGroup>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" formControlName="name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Enter your name"
+               required="required">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Phone</label>
+        <input type="text" formControlName="phone"
+               class="form-control"
+               id="email"
+               name="phone"
+               placeholder="Enter your phone number"
+               required="required"
+               >
+      </div>
+
+      <div class="btn-group">
+        <button type="submit" [disabled]="!profesorAdd.form.valid"
+                class="btn btn-info">Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

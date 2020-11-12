@@ -1,0 +1,39 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th class="align-middle" scope="col">#</th>
+        <th class="align-middle" scope="col">DATE</th>
+        <th class="align-middle" scope="col">START TIME</th>
+        <th class="align-middle" scope="col">END TIME</th>
+        <th class="align-middle" scope="col">
+          <div class="row d-flex align-items-center">
+            <div class="col">
+              Operations
+            </div>
+            <div class="col">
+              <button (click)="addDate()" class="btn btn-success">Add new Date</button>
+            </div>
+          </div>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let schedule of datesJava">
+        <td>{{ schedule.id }}</td>
+        <td>{{ schedule.date }}</td>
+        <td>{{schedule.startTime}}</td>
+        <td>{{schedule.endTime}}</td>
+        <td>
+          <div class="btn-group">
+            <button (click)="editDate(schedule.id)" class="btn btn-primary mx-1">Edit</button>
+            <button (click)="delete(schedule.id)"  class="btn btn-danger">Delete</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
