@@ -2,10 +2,8 @@ package com.sda.school.controller;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sda.school.model.PrezentModel;
-import com.sda.school.model.ProfesorModel;
+import com.sda.school.persistance.model.PrezentModel;
 import com.sda.school.repository.PrezentRepository;
-import com.sda.school.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

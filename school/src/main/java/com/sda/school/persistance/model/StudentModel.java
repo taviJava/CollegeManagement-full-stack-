@@ -1,17 +1,14 @@
-package com.sda.school.model;
+package com.sda.school.persistance.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.List;
+
 @Entity
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class StudentModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class StudentModel extends PersonModel{
+
     private String cnp;
     private String lastName;
     private String firstName;
@@ -21,16 +18,7 @@ public class StudentModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private GroupModel groupModel;
 
-    public StudentModel() {
-    }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getCnp() {
         return cnp;

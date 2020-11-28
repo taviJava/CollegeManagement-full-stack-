@@ -2,7 +2,7 @@ package com.sda.school.controller;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sda.school.model.GroupModel;
+import com.sda.school.persistance.model.GroupModel;
 import com.sda.school.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

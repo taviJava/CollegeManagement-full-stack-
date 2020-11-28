@@ -2,11 +2,7 @@ package com.sda.school.controller;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sda.school.model.ClassroomModel;
-import com.sda.school.model.MateriaModel;
-import com.sda.school.model.MessageModel;
-import com.sda.school.model.ProfesorModel;
-import com.sda.school.repository.MessageRepository;
+import com.sda.school.persistance.model.ProfesorModel;
 import com.sda.school.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +15,7 @@ import java.util.List;
 public class ProfesorController {
 @Autowired
     private ProfesorRepository profesorRepository;
-    @Autowired
-    private MessageRepository messageRepository;
+
     @GetMapping("/profesors")
     public List<ProfesorModel> getProfesors() {
         return profesorRepository.findAll();
@@ -45,16 +40,6 @@ public class ProfesorController {
         profToBeUpdated.setMateriaModelList(profesorModel.getMateriaModelList());
         profesorRepository.save(profesorModel);
     }
-    private void addMessage(String message){
-        List<MessageModel> messageModels = messageRepository.findAll();
-        MessageModel messageModel;
-        if (messageModels.size()>0){
-            messageModel = messageModels.get(0);
-        }else {
-            messageModel = new MessageModel();
-        }
-        messageModel.setMessage(message);
-        messageRepository.save(messageModel);
-    }
+
 
 }

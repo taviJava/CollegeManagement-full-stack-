@@ -1,6 +1,6 @@
 package com.sda.school.repository;
 
-import com.sda.school.model.StudentModel;
+import com.sda.school.persistance.model.StudentModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

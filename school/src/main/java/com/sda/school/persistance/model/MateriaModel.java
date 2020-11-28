@@ -1,4 +1,4 @@
-package com.sda.school.model;
+package com.sda.school.persistance.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;

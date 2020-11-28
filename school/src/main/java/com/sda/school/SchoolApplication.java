@@ -1,15 +1,7 @@
 package com.sda.school;
 
-import com.sda.school.model.ClassroomModel;
-import com.sda.school.model.ProfesorModel;
-import com.sda.school.repository.ClassroomRepository;
-import com.sda.school.repository.ProfesorRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class SchoolApplication {
