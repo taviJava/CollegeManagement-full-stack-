@@ -15,6 +15,8 @@ import {TestComponent} from './test/test/test.component';
 import {ProfessorMateriaComponent} from './profesors/components/professor-materia/professor-materia.component';
 import {StudentListComponent} from './students/components/student-list/student-list.component';
 import {StudentAddComponent} from './students/components/student-add/student-add.component';
+import {GroupListComponent} from './groups/components/group-list/group-list.component';
+import {GroupAddComponent} from './groups/components/group-add/group-add.component';
 
 const routes: Routes = [
   {path: 'professors', component: ProfesorListComponent},
@@ -33,6 +35,8 @@ const routes: Routes = [
   {path: 'profmateria/:id', component: ProfessorMateriaComponent},
   {path: 'students', component: StudentListComponent},
   {path: 'studentadd', component: StudentAddComponent},
+  {path: 'groups', component: GroupListComponent},
+  {path: 'addgroup', component: GroupAddComponent},
 ];
 
 @NgModule({

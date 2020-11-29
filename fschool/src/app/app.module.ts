@@ -25,6 +25,8 @@ import { ProfessorMateriaComponent } from './profesors/components/professor-mate
 import {NgSelectModule} from '@ng-select/ng-select';
 import { StudentListComponent } from './students/components/student-list/student-list.component';
 import { StudentAddComponent } from './students/components/student-add/student-add.component';
+import { GroupListComponent } from './groups/components/group-list/group-list.component';
+import { GroupAddComponent } from './groups/components/group-add/group-add.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { StudentAddComponent } from './students/components/student-add/student-a
     TestComponent,
     ProfessorMateriaComponent,
     StudentListComponent,
-    StudentAddComponent
+    StudentAddComponent,
+    GroupListComponent,
+    GroupAddComponent
   ],
   imports: [
     BrowserModule,
