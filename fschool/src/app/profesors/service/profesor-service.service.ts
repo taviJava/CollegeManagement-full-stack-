@@ -20,9 +20,6 @@ export class ProfesorServiceService {
   }
 
   public update(profesor: Profesor): Observable<any> {
-    console.log(profesor);
-    JSON.stringify(profesor);
-    console.log(profesor);
     return this.http.put<any>(this.profesorUrl, profesor);
   }
 

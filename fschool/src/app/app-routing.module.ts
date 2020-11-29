@@ -13,6 +13,8 @@ import {DateListComponent} from './dates/components/date-list/date-list.componen
 import {DatesAddComponent} from './dates/components/dates-add/dates-add.component';
 import {TestComponent} from './test/test/test.component';
 import {ProfessorMateriaComponent} from './profesors/components/professor-materia/professor-materia.component';
+import {StudentListComponent} from './students/components/student-list/student-list.component';
+import {StudentAddComponent} from './students/components/student-add/student-add.component';
 
 const routes: Routes = [
   {path: 'professors', component: ProfesorListComponent},
@@ -28,7 +30,9 @@ const routes: Routes = [
   {path: 'dates', component: DateListComponent},
   {path: 'addDate', component: DatesAddComponent},
   {path: '', component: TestComponent},
-  {path: 'profmateria/:id', component: ProfessorMateriaComponent}
+  {path: 'profmateria/:id', component: ProfessorMateriaComponent},
+  {path: 'students', component: StudentListComponent},
+  {path: 'studentadd', component: StudentAddComponent},
 ];
 
 @NgModule({
