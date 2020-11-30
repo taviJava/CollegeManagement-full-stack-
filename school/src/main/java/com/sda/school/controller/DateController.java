@@ -2,8 +2,10 @@ package com.sda.school.controller;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.sda.school.persistance.dto.DateDto;
 import com.sda.school.persistance.model.DateModel;
 import com.sda.school.repository.DateRepository;
+import com.sda.school.service.DateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +16,24 @@ import java.util.List;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class DateController {
     @Autowired
-    private DateRepository dateRepository;
+    private DateService dateService;
 
     @GetMapping("/date")
-    public List<DateModel> getDataModelList() {
-        return dateRepository.findAll();
+    public List<DateDto> getDataModelList() {
+        return dateService.getAll();
     }
 
     @PostMapping("/date")
-    public void addDate(@RequestBody DateModel dateModel) {
-        dateRepository.save(dateModel);
+    public void addDate(@RequestBody DateDto dateDto) {
+        dateService.save(dateDto);
     }
 
     @DeleteMapping("/date/{id}")
     public void deleteDate(@PathVariable(name = "id") Long id) {
-        dateRepository.deleteById(id);
+        dateService.delete(id);
     }
     @PutMapping("/date")
-    public void updateDate(@RequestBody DateModel dateModel) {
-        dateRepository.save(dateModel);
+    public void updateDate(@RequestBody DateDto dateDto) {
+        dateService.update(dateDto);
     }
 }
