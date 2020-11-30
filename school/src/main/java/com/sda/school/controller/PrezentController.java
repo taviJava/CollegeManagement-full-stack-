@@ -2,8 +2,8 @@ package com.sda.school.controller;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sda.school.persistance.model.PrezentModel;
-import com.sda.school.repository.PrezentRepository;
+import com.sda.school.persistance.dto.PrezentDto;
+import com.sda.school.service.PrezentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,29 +14,27 @@ import java.util.List;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class PrezentController {
     @Autowired
-    private PrezentRepository prezentRepository;
+    private PrezentService prezentService;
 
 
     @GetMapping("/prezent")
-    public List<PrezentModel> getPrezents() {
-        return prezentRepository.findAll();
+    public List<PrezentDto> getPrezents() {
+        return prezentService.getAll();
     }
     @PostMapping("/prezent")
-    public void add(@RequestBody PrezentModel prezentModel) {
-        prezentRepository.save(prezentModel);
+    public void add(@RequestBody PrezentDto prezentDto) {
+        prezentService.save(prezentDto);
     }
     @DeleteMapping("/prezent/{id}")
     public void delete(@PathVariable(name = "id") Long id) {
-        prezentRepository.deleteById(id);
+        prezentService.delete(id);
     }
     @GetMapping("/prezent/{id}")
-    public PrezentModel getProfesor(@PathVariable(name = "id") Long id) {
-        return   prezentRepository.findById(id).orElse(null);
+    public PrezentDto getProfesor(@PathVariable(name = "id") Long id) {
+        return   prezentService.getOne(id);
     }
     @PutMapping("/prezent")
-    public void update(@RequestBody PrezentModel prezentModel) {
-        PrezentModel prezToBeUpdated=prezentRepository.findById(prezentModel.getId()).orElse(null);
-        prezToBeUpdated.setPresent(prezentModel.isPresent());
-        prezentRepository.save(prezentModel);
+    public void update(@RequestBody PrezentDto prezentDto) {
+     prezentService.update(prezentDto);
     }
 }
