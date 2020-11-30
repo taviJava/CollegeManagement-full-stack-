@@ -40,6 +40,7 @@ public class MateriaService {
             MateriaDto materiaDto = new MateriaDto();
             materiaDto.setId(materiaModel.getId());
             materiaDto.setDescription(materiaModel.getDescription());
+            materiaDto.setName(materiaModel.getName());
             materiaDtos.add(materiaDto);
         }
         return materiaDtos;
@@ -51,6 +52,7 @@ public class MateriaService {
         if (materiaModelOptional.isPresent()){
             MateriaModel materiaModel = materiaModelOptional.get();
             materiaDto.setId(materiaModel.getId());
+            materiaDto.setName(materiaModel.getName());
             materiaDto.setDescription(materiaModel.getDescription());
         }
         return materiaDto;

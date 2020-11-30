@@ -32,7 +32,6 @@ message: Message;
       time1: new FormControl(),
       time2: new FormControl()
     });
-    this.dateservice.getMessage().subscribe(data => this.message = data);
   }
   // tslint:disable-next-line:typedef
   public onSubmit(content){

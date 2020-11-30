@@ -21,10 +21,6 @@ export class DateService {
     return this.http.post(this.dateUrl, date);
   }
   // tslint:disable-next-line:typedef
-  public getMessage(): Observable<Message>{
-    return this.http.get<Message>('http://localhost:8080/message');
-  }
-  // tslint:disable-next-line:typedef
   public update(date: DateJavaModel) {
     return this.http.put<DateJavaModel>(this.dateUrl, date);
   }

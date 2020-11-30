@@ -27,8 +27,8 @@ public class DateModel {
     @ManyToOne(fetch = FetchType.EAGER)
     private GroupModel groupModel;
 
-    public DateModel() {
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProfesorModel profesorModel;
 
     public long getId() {
         return id;
@@ -76,5 +76,13 @@ public class DateModel {
 
     public void setGroupModel(GroupModel groupModel) {
         this.groupModel = groupModel;
+    }
+
+    public ProfesorModel getProfesorModel() {
+        return profesorModel;
+    }
+
+    public void setProfesorModel(ProfesorModel profesorModel) {
+        this.profesorModel = profesorModel;
     }
 }

@@ -5,9 +5,7 @@ import com.sda.school.persistance.model.DateModel;
 import com.sda.school.repository.DateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +20,44 @@ public class DateService {
         dateModel.setStartTime(dateDto.getStartTime());
         dateModel.setEndTime(dateDto.getEndTime());
         dateRepository.save(dateModel);
+    }
+    private boolean ifIsOccupated(DateModel dateModelOld, DateModel dateModel){
+        if (dateModel.getDate().equals(dateModelOld.getDate())){
+            if (dateModel.getStartTime().equals(dateModelOld.getStartTime())||
+                    dateModel.getStartTime().before(dateModelOld.getStartTime())&&dateModel.getEndTime().after(dateModelOld.getStartTime())||
+                    dateModel.getStartTime().after(dateModelOld.getStartTime())&&dateModel.getStartTime().before(dateModelOld.getEndTime())||
+                    dateModel.getStartTime().before(dateModelOld.getStartTime())&&dateModel.getEndTime().equals(dateModelOld.getEndTime())){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean verifyDatesByProfesor(long id, DateModel dateModel){
+        List<DateModel> dateModels = dateRepository.findAllByProfesorModel(id);
+        for (DateModel dateModelOld: dateModels){
+            if (ifIsOccupated(dateModelOld,dateModel)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean verifyDatesByGroup(long id, DateModel dateModel){
+        List<DateModel> dateModels = dateRepository.findAllByGroupModel(id);
+        for (DateModel dateModelOld: dateModels){
+            if (ifIsOccupated(dateModelOld,dateModel)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean verifyDatesByClass(long id, DateModel dateModel){
+        List<DateModel> dateModels = dateRepository.findAllByClassroomModel(id);
+        for (DateModel dateModelOld: dateModels){
+            if (ifIsOccupated(dateModelOld,dateModel)){
+                return true;
+            }
+        }
+        return false;
     }
     public void update(DateDto dateDto){
         Optional<DateModel> dateModelOptional = dateRepository.findById(dateDto.getId());
