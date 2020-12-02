@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface DateRepository extends JpaRepository<DateModel,Long> {
-    List<DateModel> findAllByClassroomModel(long id);
-    List<DateModel> findAllByProfesorModel(long id);
-    List<DateModel> findAllByGroupModel(long id);
+    List<DateModel> findAllByClassroomModel_Id(long id);
+    List<DateModel> findAllByProfesorModel_Id(long id);
+    List<DateModel> findAllByGroupModel_Id(long id);
 }

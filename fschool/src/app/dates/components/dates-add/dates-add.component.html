@@ -5,7 +5,7 @@
       <div class="form-group">
         <div class="input-group">
           <input class="form-control" placeholder="yyyy-mm-dd"
-                 name="dp" formControlName="date1"  ngbDatepicker #d="ngbDatepicker">
+                 name="dp" [(ngModel)]="date1" [ngModelOptions]="{standalone: true}" ngbDatepicker #d="ngbDatepicker">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
           </div>
@@ -13,15 +13,60 @@
       </div>
       <h5>Enter the start hour</h5>
       <div class="input-group">
-        <ngb-timepicker  formControlName="time1"></ngb-timepicker>
+        <ngb-timepicker  [(ngModel)]="time1" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
         <hr>
         <pre hidden>Selected time: {{time1 | json}}</pre>
       </div>
       <h5>Enter the end hour</h5>
       <div class="input-group">
-        <ngb-timepicker  formControlName="time2"></ngb-timepicker>
+        <ngb-timepicker  [(ngModel)]="time2" [ngModelOptions]="{standalone: true}"></ngb-timepicker>
         <hr>
         <pre hidden>Selected time: {{time2 | json}}</pre>
+      </div>
+      <div class="form-group">
+        <label for="prof">Professors</label>
+        <ng-multiselect-dropdown
+          [data]="professors"
+          [placeholder]="'Select the Professor'"
+          id="prof"
+          [(ngModel)]="selectedProf"
+          [ngModelOptions]="{standalone: true}"
+          [settings]="dropdownSettingsProf"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+          <div [hidden]="" class="alert alert-danger">Professors is required</div>
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="form-group">
+        <label for="group">Professors</label>
+        <ng-multiselect-dropdown
+          [data]="groups"
+          [placeholder]="'Select the Group'"
+          id="group"
+          [(ngModel)]="selectedGroups"
+          [ngModelOptions]="{standalone: true}"
+          [settings]="dropdownSettingsProf"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+          <div [hidden]="" class="alert alert-danger">Classroom is required</div>
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="form-group">
+        <label for="class">Classrooms</label>
+        <ng-multiselect-dropdown
+          [data]="classes"
+          [placeholder]="'Select the Class'"
+          id="class"
+          [(ngModel)]="selectedClasses"
+          [ngModelOptions]="{standalone: true}"
+          [settings]="dropdownSettingsProf"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+          <div [hidden]="" class="alert alert-danger">Classroom is required</div>
+        </ng-multiselect-dropdown>
       </div>
       <button type="submit" [disabled]="!datesAdded.form.valid"
               class="btn btn-info">Submit
