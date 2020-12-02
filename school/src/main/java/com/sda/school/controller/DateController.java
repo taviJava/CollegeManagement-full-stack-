@@ -3,8 +3,7 @@ package com.sda.school.controller;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sda.school.persistance.dto.DateDto;
-import com.sda.school.persistance.model.DateModel;
-import com.sda.school.repository.DateRepository;
+import com.sda.school.persistance.message.ResponseMessage;
 import com.sda.school.service.DateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +22,9 @@ public class DateController {
         return dateService.getAll();
     }
 
-    @PostMapping("/date")
-    public void addDate(@RequestBody DateDto dateDto) {
-        dateService.save(dateDto);
+    @PostMapping("/date/{profId}/{groupId}/{classId}")
+    public ResponseMessage addDate(@RequestBody DateDto dateDto, @PathVariable(name = "profId") Long profId, @PathVariable(name = "groupId") Long groupId, @PathVariable(name = "classId") Long classId) {
+        return new ResponseMessage(dateService.save(dateDto,profId,groupId,classId));
     }
 
     @DeleteMapping("/date/{id}")

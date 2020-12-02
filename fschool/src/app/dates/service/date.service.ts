@@ -17,8 +17,8 @@ export class DateService {
   }
 
   // tslint:disable-next-line:typedef
-  public save(date: DateJavaModel){
-    return this.http.post(this.dateUrl, date);
+  public save(date: DateJavaModel, profId: number, classId: number, groupId: number): Observable<any>{
+    return this.http.post<any>(`${this.dateUrl}/${profId}/${groupId}/${classId}`, date);
   }
   // tslint:disable-next-line:typedef
   public update(date: DateJavaModel) {

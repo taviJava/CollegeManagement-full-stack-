@@ -1,5 +1,11 @@
 package com.sda.school.persistance.dto;
 
+import com.sda.school.persistance.model.ClassroomModel;
+import com.sda.school.persistance.model.GroupModel;
+import com.sda.school.persistance.model.ProfesorModel;
+
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -10,6 +16,8 @@ public class DateDto {
     private Time endTime;
     private ClassRoomDto classroomModel;
     private GroupDto groupModel;
+    private ProfesorModel profesorModel;
+
 
     public long getId() {
         return id;
@@ -45,6 +53,14 @@ public class DateDto {
 
     public ClassRoomDto getClassroomModel() {
         return classroomModel;
+    }
+
+    public ProfesorModel getProfesorModel() {
+        return profesorModel;
+    }
+
+    public void setProfesorModel(ProfesorModel profesorModel) {
+        this.profesorModel = profesorModel;
     }
 
     public void setClassroomModel(ClassRoomDto classroomModel) {
