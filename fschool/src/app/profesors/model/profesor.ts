@@ -5,5 +5,7 @@ export class Profesor {
   id: number;
   name: string;
   phoneNumber: string;
+  email: string;
+  password: string;
   materiaModelList: Materia[];
 }

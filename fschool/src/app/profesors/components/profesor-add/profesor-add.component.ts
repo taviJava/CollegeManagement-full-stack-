@@ -11,7 +11,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class ProfesorAddComponent implements OnInit {
   profesor: Profesor;
-  myGroup: FormGroup;
+  confirmPassword = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -21,18 +21,11 @@ export class ProfesorAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.myGroup = new FormGroup({
-      name: new FormControl(),
-      phone: new FormControl(),
-      materias: new FormControl()
-    });
-
+  this.profesor = new Profesor();
   }
 
   // tslint:disable-next-line:typedef
   onSubmit() {
-    this.profesor.name = this.myGroup.get('name').value;
-    this.profesor.phoneNumber = this.myGroup.get('phone').value;
     this.profesorService.save(this.profesor).subscribe(result => this.gotoProfesorsList());
   }
 
@@ -40,5 +33,10 @@ export class ProfesorAddComponent implements OnInit {
   gotoProfesorsList() {
     console.log('product added');
     this.router.navigate(['/professors']);
+  }
+  matchPassword(): boolean{
+    if (this.confirmPassword === this.profesor.password){
+      return true;
+    }
   }
 }

@@ -1,6 +1,9 @@
 package com.sda.school.service;
 
+import com.sda.school.persistance.dto.ClassRoomDto;
 import com.sda.school.persistance.dto.DateDto;
+import com.sda.school.persistance.dto.GroupDto;
+import com.sda.school.persistance.dto.ProfesorDto;
 import com.sda.school.persistance.model.ClassroomModel;
 import com.sda.school.persistance.model.DateModel;
 import com.sda.school.persistance.model.GroupModel;
@@ -121,6 +124,16 @@ public class DateService {
             dateDto.setDate(dateModel.getDate());
             dateDto.setStartTime(dateModel.getStartTime());
             dateDto.setEndTime(dateModel.getEndTime());
+            ProfesorDto profesorDto = new ProfesorDto();
+            profesorDto.setName(dateModel.getProfesorModel().getName());
+            dateDto.setProfesorModel(profesorDto);
+            GroupDto groupDto = new GroupDto();
+            groupDto.setName(dateModel.getGroupModel().getName());
+            groupDto.setId(dateModel.getGroupModel().getId());
+            dateDto.setGroupModel(groupDto);
+            ClassRoomDto classRoomDto = new ClassRoomDto();
+            classRoomDto.setName(dateModel.getClassroomModel().getName());
+            dateDto.setClassroomModel(classRoomDto);
             dateDtos.add(dateDto);
         }
         return dateDtos;

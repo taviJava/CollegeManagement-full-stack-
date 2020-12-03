@@ -6,6 +6,7 @@
         <th class="align-middle" scope="col">#</th>
         <th class="align-middle" scope="col">Name</th>
         <th class="align-middle" scope="col">Email</th>
+        <th class="align-middle" scope="col">Phone Number</th>
         <th class="align-middle" scope="col">
           <div class="row d-flex align-items-center">
             <div class="col">
@@ -22,6 +23,7 @@
       <tr *ngFor="let profesor of profesors">
         <td>{{ profesor.id }}</td>
         <td>{{ profesor.name }}</td>
+        <td>{{profesor.email}}</td>
         <td>{{profesor.phoneNumber}}</td>
         <td>
           <div class="btn-group">

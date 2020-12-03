@@ -13,7 +13,7 @@ public class ProfesorModel extends PersonModel {
 
     private String name;
     private String phoneNumber;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<MateriaModel> materiaModelList;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesorModel")
     private List<DateModel> dateModelList;

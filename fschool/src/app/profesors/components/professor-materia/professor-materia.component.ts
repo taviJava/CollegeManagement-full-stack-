@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Profesor} from '../../model/profesor';
 import {Materia} from '../../../materies/model/materia';
 import {IDropdownSettings} from 'ng-multiselect-dropdown/multiselect.model';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {MateriaService} from '../../../materies/service/materia.service';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-professor-materia',
@@ -18,8 +17,6 @@ export class ProfessorMateriaComponent implements OnInit {
   profesor: Profesor = new Profesor();
   materiass: Materia[] = [];
   dropdownSettings: IDropdownSettings = {};
-  myGroup: FormGroup;
-  profesorDeProba: Profesor = new Profesor();
   public profesors: Profesor[] = [];
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,11 +40,6 @@ export class ProfessorMateriaComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true,
     };
-    this.myGroup = new FormGroup({
-      name: new FormControl(),
-      phone: new FormControl(),
-      materias: new FormControl()
-    });
   }
   // tslint:disable-next-line:typedef
   onSubmit() {

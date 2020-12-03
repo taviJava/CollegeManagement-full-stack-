@@ -1,6 +1,8 @@
 package com.sda.school.service;
 
+import com.sda.school.persistance.dto.MateriaDto;
 import com.sda.school.persistance.dto.ProfesorDto;
+import com.sda.school.persistance.model.MateriaModel;
 import com.sda.school.persistance.model.ProfesorModel;
 import com.sda.school.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class ProfesorService {
     public void save(ProfesorDto profesorDto){
         ProfesorModel profesorModel = new ProfesorModel();
         profesorModel.setName(profesorDto.getName());
-        profesorModel.setPhoneNumber(profesorModel.getPhoneNumber());
+        profesorModel.setPhoneNumber(profesorDto.getPhoneNumber());
         profesorModel.setEmail(profesorDto.getEmail());
         profesorModel.setPassword("profesor");
         profesorRepository.save(profesorModel);
@@ -31,6 +33,15 @@ public class ProfesorService {
             profesorModel.setPhoneNumber(profesorModel.getPhoneNumber());
             profesorModel.setEmail(profesorDto.getEmail());
             profesorModel.setPassword(profesorDto.getPassword());
+            List<MateriaModel> materiaModels = new ArrayList<>();
+            for (MateriaDto materiaDto: profesorDto.getMateriaModelList()){
+                MateriaModel materiaModel = new MateriaModel();
+                materiaModel.setId(materiaDto.getId());
+                materiaModel.setName(materiaDto.getName());
+                materiaModel.setDescription(materiaDto.getDescription());
+                materiaModels.add(materiaModel);
+            }
+            profesorModel.setMateriaModelList(materiaModels);
             profesorRepository.save(profesorModel);
         }
     }
