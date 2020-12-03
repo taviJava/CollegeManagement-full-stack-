@@ -17,6 +17,7 @@ import {StudentListComponent} from './students/components/student-list/student-l
 import {StudentAddComponent} from './students/components/student-add/student-add.component';
 import {GroupListComponent} from './groups/components/group-list/group-list.component';
 import {GroupAddComponent} from './groups/components/group-add/group-add.component';
+import {GroupStudentsComponent} from './groups/components/group-students/group-students.component';
 
 const routes: Routes = [
   {path: 'professors', component: ProfesorListComponent},
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'studentadd', component: StudentAddComponent},
   {path: 'groups', component: GroupListComponent},
   {path: 'addgroup', component: GroupAddComponent},
+  {path: 'group-students/:id', component: GroupStudentsComponent},
 ];
 
 @NgModule({

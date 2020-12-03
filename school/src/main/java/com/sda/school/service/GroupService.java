@@ -1,8 +1,11 @@
 package com.sda.school.service;
 
 import com.sda.school.persistance.dto.GroupDto;
+import com.sda.school.persistance.dto.StudentDto;
 import com.sda.school.persistance.model.GroupModel;
+import com.sda.school.persistance.model.StudentModel;
 import com.sda.school.repository.GroupRepository;
+import com.sda.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,8 @@ import java.util.Optional;
 public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     public void save(GroupDto groupDto){
         GroupModel groupModel = new GroupModel();
@@ -26,6 +31,16 @@ public class GroupService {
         if (groupModelOptional.isPresent()){
             GroupModel groupModel = groupModelOptional.get();
             groupModel.setName(groupDto.getName());
+            List<StudentModel> studentModels = new ArrayList<>();
+            for (StudentDto studentDto: groupDto.getStudentModelList()){
+                Optional<StudentModel> studentModelOptional = studentRepository.findById(studentDto.getId());
+                if (studentModelOptional.isPresent()){
+                    StudentModel studentModel = studentModelOptional.get();
+                    studentModel.setGroupModel(groupModel);
+                    studentRepository.save(studentModel);
+                }
+            }
+            groupModel.setStudentModelList(studentModels);
             groupRepository.save(groupModel);
         }
     }

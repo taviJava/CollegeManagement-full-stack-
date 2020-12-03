@@ -59,6 +59,24 @@ public class StudentService {
         }
         return studentDtos;
     }
+    public List<StudentDto> getStudentsWithOutGroup(){
+        List<StudentModel> studentModels = studentRepository.findAll();
+        List<StudentDto> studentDtos = new ArrayList<>();
+        for (StudentModel studentModel: studentModels){
+            if (studentModel.getGroupModel() == null){
+                StudentDto studentDto = new StudentDto();
+                studentDto.setId(studentModel.getId());
+                studentDto.setCnp(studentModel.getCnp());
+                studentDto.setEmail(studentModel.getEmail());
+                studentDto.setFirstName(studentModel.getFirstName());
+                studentDto.setLastName(studentModel.getLastName());
+                studentDto.setPassword(studentModel.getPassword());
+                studentDto.setFullName();
+                studentDtos.add(studentDto);
+            }
+        }
+        return studentDtos;
+    }
 
     public StudentDto getOne(long id){
         Optional<StudentModel> studentModelOptional = studentRepository.findById(id);

@@ -20,6 +20,10 @@ public class StudentController {
     public List<StudentDto> getStudents() {
         return studentService.getAll();
     }
+    @GetMapping("/student/group")
+    public List<StudentDto> getStudentsWithOutGroup() {
+        return studentService.getStudentsWithOutGroup();
+    }
     @PostMapping("/student")
     public void add(@RequestBody StudentDto studentDto) {
         studentService.save(studentDto);

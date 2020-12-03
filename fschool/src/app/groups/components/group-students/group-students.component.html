@@ -1,0 +1,26 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()"  #studentsAdd="ngForm">
+      <div class="form-group">
+        <label for="materias">Phone</label>
+        <ng-multiselect-dropdown
+          [data]="students"
+          [placeholder]="'Select the students for this group'"
+          [(ngModel)]="group.studentModelList"
+          [ngModelOptions]="{standalone: true}"
+          id="materias"
+          [settings]="dropdownSettings"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+          <div [hidden]="" class="alert alert-danger">Students are required</div>
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="btn-group">
+        <button type="submit" [disabled]="!studentsAdd.form.valid"
+                class="btn btn-info">Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

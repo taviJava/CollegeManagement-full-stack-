@@ -18,6 +18,10 @@ export class StudentService {
     return this.http.get<Student[]>(this.studentUrl);
   }
 
+  public findAllWithoutGroup(): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.studentUrl}/group`);
+  }
+
   public save(student: Student): Observable<any> {
     return this.http.post<any>(this.studentUrl, student);
   }

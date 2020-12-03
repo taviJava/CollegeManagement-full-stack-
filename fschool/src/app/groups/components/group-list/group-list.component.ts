@@ -53,4 +53,8 @@ export class GroupListComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+  // tslint:disable-next-line:typedef
+  addStudents(id: number){
+    this.router.navigate(['group-students/' + id]);
+  }
 }

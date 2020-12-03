@@ -5,5 +5,6 @@ export class Student {
   cnp: string;
   lastName: string;
   firstName: string;
+  fullName: string;
   prezentModel: any;
 }

@@ -8,6 +8,7 @@ public class StudentDto {
     private String cnp;
     private String lastName;
     private String firstName;
+    private String fullName;
     private PrezentDto prezentModel;
     private GroupDto groupModel;
 
@@ -73,5 +74,13 @@ public class StudentDto {
 
     public void setGroupModel(GroupDto groupModel) {
         this.groupModel = groupModel;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName() {
+        this.fullName = this.firstName + " " + this.lastName;
     }
 }
