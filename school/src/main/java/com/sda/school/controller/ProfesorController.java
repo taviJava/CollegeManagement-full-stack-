@@ -28,14 +28,17 @@ public class ProfesorController {
     public void addProfesor(@RequestBody ProfesorDto profesorDto) {
         profesorService.registerProfessor(profesorDto);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/profesors/{id}")
     public void deleteProfesor(@PathVariable(name = "id") Long id) {
         profesorService.delete(id);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/profesors/{id}")
     public ProfesorDto getProfesor(@PathVariable(name = "id") Long id) {
       return   profesorService.getOne(id);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/profesors")
     public void updateProfesor(@RequestBody ProfesorDto profesorDto) {
         profesorService.update(profesorDto);

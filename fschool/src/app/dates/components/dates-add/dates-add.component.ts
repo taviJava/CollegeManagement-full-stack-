@@ -11,6 +11,7 @@ import {ProfesorServiceService} from '../../../profesors/service/profesor-servic
 import {ClassroomService} from '../../../classrooms/service/classroom.service';
 import {GroupService} from '../../../groups/service/group.service';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {Student} from '../../../students/model/student';
 
 
 @Component({
@@ -80,15 +81,15 @@ dateJava: DateJavaModel = new DateJavaModel();
     };
     this.profService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.professors = [];
-      this.professors = data;
+      this.professors = JSON.parse(data) as Profesor[];
     });
     this.classService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.classes = [];
-      this.classes = data;
+      this.classes = JSON.parse(data) as Classroom[];
     });
     this.groupService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.groups = [];
-      this.groups = data;
+      this.groups = JSON.parse(data) as Group[];
     });
   }
   // tslint:disable-next-line:typedef
@@ -100,8 +101,9 @@ dateJava: DateJavaModel = new DateJavaModel();
     this.dateJava.classroomModel = this.selectedClasses[0];
     this.dateJava.profesorModel = this.selectedProf[0];
     // tslint:disable-next-line:max-line-length
-    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result =>{
-      this.message = result.message;
+    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => {
+      const data = JSON.parse(result);
+      this.message = data.message;
       this.open(content);
     });
   }
