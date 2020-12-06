@@ -60,4 +60,12 @@ closeResult = '';
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+  hasPrivileges(): boolean{
+    if (this.authService.person.role === 'Admin'){
+      return true;
+    }
+    if (this.authService.person.role === 'Professor'){
+      return true;
+    }
+      }
 }

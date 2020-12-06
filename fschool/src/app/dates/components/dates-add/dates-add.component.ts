@@ -12,6 +12,7 @@ import {ClassroomService} from '../../../classrooms/service/classroom.service';
 import {GroupService} from '../../../groups/service/group.service';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
 import {Student} from '../../../students/model/student';
+import {Person} from '../../../persons/model/person';
 
 
 @Component({
@@ -139,5 +140,4 @@ dateJava: DateJavaModel = new DateJavaModel();
   onSelectAll(items: any) {
     console.log(items);
   }
-
 }
