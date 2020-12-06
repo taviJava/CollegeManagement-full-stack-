@@ -21,5 +21,20 @@
         <a routerLink="/groups" class="nav-link text-white"><i class="fa fa-id-card" aria-hidden="true"></i> Groups</a>
       </li>
     </ul>
+    <ul class="navbar-nav ">
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <div class="row ">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary dropdown-toggle" id="dropdownBasic3" ngbDropdownToggle><i class="fa fa-user-circle"></i> {{currentUser.email}}</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1"  class="overflow-auto">
+                <button ngbDropdownItem ><a class="dropdown-item"  (click)="logOut()" >Log Out</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
   </div>
 </nav>

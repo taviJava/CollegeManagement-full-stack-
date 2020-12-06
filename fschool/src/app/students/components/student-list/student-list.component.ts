@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {StudentService} from '../../service/student.service';
 import {Student} from '../../model/student';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-student-list',
@@ -15,13 +16,14 @@ export class StudentListComponent implements OnInit {
    constructor(private route: ActivatedRoute,
                private router: Router,
                private studentService: StudentService,
-               private modalService: NgbModal) { }
+               private modalService: NgbModal,
+               private authService: AuthPersonService) { }
 
   ngOnInit(): void {
      this.students = [];
-     this.studentService.findAll().subscribe(result => {
+     this.studentService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => {
        this.students = [];
-       this.students = result;
+       this.students =  JSON.parse(result) as Student[];
      });
   }
 // tslint:disable-next-line:typedef
@@ -34,7 +36,7 @@ goToAddStudents(){
   // }
   // tslint:disable-next-line:typedef
   deleteStudent(id: number) {
-    this.studentService.delete(id).subscribe(data => {
+    this.studentService.delete(id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.ngOnInit();
     });
   }

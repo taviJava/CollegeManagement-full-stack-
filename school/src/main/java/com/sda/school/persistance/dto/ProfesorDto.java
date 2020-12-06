@@ -5,6 +5,7 @@ public class ProfesorDto {
     private long id;
     private String email;
     private String password;
+    private String role;
     private String name;
     private String phoneNumber;
     private List<MateriaDto> materiaModelList;
@@ -47,6 +48,14 @@ public class ProfesorDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<MateriaDto> getMateriaModelList() {

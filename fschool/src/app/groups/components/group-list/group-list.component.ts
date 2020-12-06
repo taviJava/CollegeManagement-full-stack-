@@ -5,6 +5,8 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MateriaService} from '../../../materies/service/materia.service';
 import {Group} from '../../model/group';
 import {GroupService} from '../../service/group.service';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {Student} from '../../../students/model/student';
 
 @Component({
   selector: 'app-group-list',
@@ -17,7 +19,8 @@ export class GroupListComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
-              private groupService: GroupService
+              private groupService: GroupService,
+              private authService: AuthPersonService
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +28,7 @@ export class GroupListComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   getGroups(){
-    this.groupService.findAll().subscribe(data => this.groups = data );
+    this.groupService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => this.groups =  JSON.parse(data) as Group[]);
   }
   // tslint:disable-next-line:typedef
   addGroup(){
@@ -33,7 +36,7 @@ export class GroupListComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   deleteGroup(id: number){
-    this.groupService.delete(id).subscribe(result => this.getGroups());
+    this.groupService.delete(id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.getGroups());
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

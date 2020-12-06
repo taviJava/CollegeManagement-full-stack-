@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Materia} from '../../model/materia';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MateriaService} from '../../service/materia.service';
-import {Observable} from 'rxjs';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-add-materia',
@@ -14,7 +13,8 @@ export class AddMateriaComponent implements OnInit {
 materia: Materia = new Materia();
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private materiaService: MateriaService) { }
+              private materiaService: MateriaService,
+              private authService: AuthPersonService) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +24,7 @@ materia: Materia = new Materia();
   }
   // tslint:disable-next-line:typedef
   public onSubmit(){
-    this.materiaService.save(this.materia).subscribe(result => this.goToMateriaList());
+    this.materiaService.save(this.materia , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.goToMateriaList());
   }
 
 }

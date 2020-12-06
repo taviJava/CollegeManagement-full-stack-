@@ -1,0 +1,48 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #profesorAdd="ngForm">
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" [(ngModel)]="person.email"
+               class="form-control"
+               id="email"
+               name="phone"
+               placeholder="Enter the email"
+               required #email="ngModel"
+        >
+      </div>
+      <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" [(ngModel)]="person.password"
+               class="form-control"
+               id="password"
+               name="password"
+               placeholder="Enter your phone number"
+               required #pass1="ngModel"
+        >
+      </div>
+      <div [hidden]="!pass1.pristine" class="alert alert-danger">Password is required</div>
+
+
+      <div class="form-group">
+        <label for="passwordC">Confirm Password</label>
+        <input type="text" [(ngModel)]="confirmPassword"
+               class="form-control"
+               id="passwordC"
+               name="password"
+               placeholder="Enter your phone number"
+               required #pass="ngModel"
+        >
+      </div>
+      <div [hidden]="!pass.pristine" class="alert alert-danger">Password is required</div>
+      <div [hidden]="matchPassword()" class="alert alert-danger">Password don't match</div>
+      <div class="btn-group">
+        <button type="submit" [disabled]="!profesorAdd.form.valid"
+                class="btn btn-info">Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

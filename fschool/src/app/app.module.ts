@@ -28,6 +28,8 @@ import { StudentAddComponent } from './students/components/student-add/student-a
 import { GroupListComponent } from './groups/components/group-list/group-list.component';
 import { GroupAddComponent } from './groups/components/group-add/group-add.component';
 import { GroupStudentsComponent } from './groups/components/group-students/group-students.component';
+import { AddPersonComponent } from './persons/component/add-person/add-person.component';
+import { LoginComponent } from './persons/component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { GroupStudentsComponent } from './groups/components/group-students/group
     StudentAddComponent,
     GroupListComponent,
     GroupAddComponent,
-    GroupStudentsComponent
+    GroupStudentsComponent,
+    AddPersonComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

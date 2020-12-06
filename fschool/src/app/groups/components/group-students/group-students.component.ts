@@ -7,6 +7,8 @@ import {StudentService} from '../../../students/service/student.service';
 import {GroupService} from '../../service/group.service';
 import {Group} from '../../model/group';
 import {Student} from '../../../students/model/student';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {DateJavaModel} from '../../../dates/model/date-java-model';
 
 @Component({
   selector: 'app-group-students',
@@ -21,19 +23,20 @@ export class GroupStudentsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private studentService: StudentService,
-              private groupService: GroupService) { }
+              private groupService: GroupService,
+              private authService: AuthPersonService) { }
 
   ngOnInit(): void {
     this.students = [];
     this.group = new Group();
     this.id = this.route.snapshot.params.id;
-    this.groupService.getById(this.id).subscribe(result => {
+    this.groupService.getById(this.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => {
       this.group = new Group();
-      this.group = result;
+      this.group =  JSON.parse(result) as Group;
     });
-    this.studentService.findAllWithoutGroup().subscribe(data => {
+    this.studentService.findAllWithoutGroup(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.students = [];
-      this.students = data;
+      this.students = JSON.parse(data) as Student[];
     });
     this.dropdownSettings = {
       singleSelection: false,
@@ -47,7 +50,7 @@ export class GroupStudentsComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   onSubmit() {
-    this.groupService.update(this.group).subscribe(data => {
+    this.groupService.update(this.group , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.router.navigate(['']);
     });
   }

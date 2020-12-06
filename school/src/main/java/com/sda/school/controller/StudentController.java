@@ -26,7 +26,7 @@ public class StudentController {
     }
     @PostMapping("/student")
     public void add(@RequestBody StudentDto studentDto) {
-        studentService.save(studentDto);
+        studentService.registerStud(studentDto);
     }
     @DeleteMapping("/student/{id}")
     public void delete(@PathVariable(name = "id") Long id) {

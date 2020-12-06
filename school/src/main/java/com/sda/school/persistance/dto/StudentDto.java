@@ -5,6 +5,7 @@ public class StudentDto {
     private long id;
     private String email;
     private String password;
+    private String role;
     private String cnp;
     private String lastName;
     private String firstName;
@@ -79,6 +80,15 @@ public class StudentDto {
     public String getFullName() {
         return fullName;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 
     public void setFullName() {
         this.fullName = this.firstName + " " + this.lastName;

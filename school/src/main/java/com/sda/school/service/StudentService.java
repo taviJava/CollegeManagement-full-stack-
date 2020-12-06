@@ -1,8 +1,10 @@
 package com.sda.school.service;
 
 import com.sda.school.persistance.dto.StudentDto;
+import com.sda.school.persistance.model.Role;
 import com.sda.school.persistance.model.StudentModel;
 import com.sda.school.repository.StudentRepository;
+import com.sda.school.security.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentService extends UserDetailService {
     @Autowired
     private StudentRepository studentRepository;
 
@@ -22,6 +24,7 @@ public class StudentService {
         studentModel.setLastName(studentDto.getLastName());
         studentModel.setEmail(studentDto.getEmail());
         studentModel.setPassword("student");
+        studentModel.setRole(Role.valueOf("Student"));
         studentRepository.save(studentModel);
     }
 
@@ -33,11 +36,9 @@ public class StudentService {
             studentModel.setFirstName(studentDto.getFirstName());
             studentModel.setLastName(studentDto.getLastName());
             studentModel.setEmail(studentDto.getEmail());
-            studentModel.setPassword("student");
+            studentModel.setPassword(studentDto.getPassword());
             studentRepository.save(studentModel);
         }
-
-
     }
 
     public void delete(long id){

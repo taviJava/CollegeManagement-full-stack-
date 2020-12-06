@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Materia} from '../../materies/model/materia';
 import {Group} from '../model/group';
@@ -12,23 +12,33 @@ export class GroupService {
   constructor(private http: HttpClient) {
     this.groupUrl = 'http://localhost:8080/group';
   }
-  public findAll(): Observable<Group[]> {
-    return this.http.get<Group[]>(this.groupUrl);
+  public findAll(token: string): Observable<any> {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<any>(this.groupUrl , { headers, responseType: 'text' as 'json' });
   }
   // tslint:disable-next-line:typedef
-  public save(group: Group){
-    return this.http.post<Group>(this.groupUrl, group);
+  public save(group: Group , token: string){
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<any>(this.groupUrl, group , { headers, responseType: 'text' as 'json' });
   }
   // tslint:disable-next-line:typedef
-  public update(group: Group) {
-    return this.http.put<Group>(this.groupUrl, group);
+  public update(group: Group , token: string) {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<any>(this.groupUrl, group , { headers, responseType: 'text' as 'json' });
   }
-  public getById(id: number): Observable<any> {
-    return this.http.get(`${this.groupUrl}/${id}`);
+  public getById(id: number , token: string): Observable<any> {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get(`${this.groupUrl}/${id}` , { headers, responseType: 'text' as 'json' } );
   }
   // tslint:disable-next-line:typedef
-  public delete(id: number) {
-    return this.http.delete(`${this.groupUrl}/${id}`);
+  public delete(id: number , token: string) {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete(`${this.groupUrl}/${id}` , { headers, responseType: 'text' as 'json' });
   }
 
 }

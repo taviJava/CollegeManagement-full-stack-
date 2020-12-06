@@ -7,5 +7,6 @@ export class Profesor {
   phoneNumber: string;
   email: string;
   password: string;
+  role: string;
   materiaModelList: Materia[];
 }

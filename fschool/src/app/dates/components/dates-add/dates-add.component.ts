@@ -10,6 +10,7 @@ import {Group} from '../../../groups/model/group';
 import {ProfesorServiceService} from '../../../profesors/service/profesor-service.service';
 import {ClassroomService} from '../../../classrooms/service/classroom.service';
 import {GroupService} from '../../../groups/service/group.service';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 
 @Component({
@@ -39,7 +40,8 @@ dateJava: DateJavaModel = new DateJavaModel();
               private modalService: NgbModal,
               private profService: ProfesorServiceService,
               private classService: ClassroomService,
-              private groupService: GroupService
+              private groupService: GroupService,
+              private authService: AuthPersonService
   ) {  }
 
   ngOnInit(): void {
@@ -76,15 +78,15 @@ dateJava: DateJavaModel = new DateJavaModel();
       itemsShowLimit: 3,
       allowSearchFilter: true,
     };
-    this.profService.findAll().subscribe(data => {
+    this.profService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.professors = [];
       this.professors = data;
     });
-    this.classService.findAll().subscribe(data => {
+    this.classService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.classes = [];
       this.classes = data;
     });
-    this.groupService.findAll().subscribe(data => {
+    this.groupService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.groups = [];
       this.groups = data;
     });
@@ -98,7 +100,7 @@ dateJava: DateJavaModel = new DateJavaModel();
     this.dateJava.classroomModel = this.selectedClasses[0];
     this.dateJava.profesorModel = this.selectedProf[0];
     // tslint:disable-next-line:max-line-length
-    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id).subscribe(result =>{
+    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result =>{
       this.message = result.message;
       this.open(content);
     });

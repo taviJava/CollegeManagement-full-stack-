@@ -3,6 +3,7 @@ import {Profesor} from '../../model/profesor';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-profesor-add',
@@ -16,6 +17,7 @@ export class ProfesorAddComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private profesorService: ProfesorServiceService,
+              private authService: AuthPersonService
               ) {
     this.profesor = new Profesor();
   }
@@ -26,7 +28,7 @@ export class ProfesorAddComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   onSubmit() {
-    this.profesorService.save(this.profesor).subscribe(result => this.gotoProfesorsList());
+    this.profesorService.save(this.profesor, this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.gotoProfesorsList());
   }
 
   // tslint:disable-next-line:typedef
