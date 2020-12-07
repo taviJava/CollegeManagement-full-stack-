@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Profesor} from '../../model/profesor';
 import {Materia} from '../../../materies/model/materia';
 import {IDropdownSettings} from 'ng-multiselect-dropdown/multiselect.model';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {MateriaService} from '../../../materies/service/materia.service';
-import {Observable} from 'rxjs';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-professor-materia',
@@ -18,22 +17,21 @@ export class ProfessorMateriaComponent implements OnInit {
   profesor: Profesor = new Profesor();
   materiass: Materia[] = [];
   dropdownSettings: IDropdownSettings = {};
-  myGroup: FormGroup;
-  profesorDeProba: Profesor = new Profesor();
   public profesors: Profesor[] = [];
   constructor(private route: ActivatedRoute,
               private router: Router,
               private profesorService: ProfesorServiceService,
-              private materiaService: MateriaService) { }
+              private materiaService: MateriaService,
+              private authService: AuthPersonService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
-    this.profesorService.getById(this.id).subscribe(data => {
-      this.profesor = data;
+    this.profesorService.getById(this.id, this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
+      this.profesor = JSON.parse(data) as Profesor;
     });
     this.materiass = [];
-    this.materiaService.findAll().subscribe(data => this.materiass = data);
-    console.log(this.materiass);
+    // tslint:disable-next-line:max-line-length
+    this.materiaService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => this.materiass = JSON.parse(data) as Materia[]);
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -43,15 +41,10 @@ export class ProfessorMateriaComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true,
     };
-    this.myGroup = new FormGroup({
-      name: new FormControl(),
-      phone: new FormControl(),
-      materias: new FormControl()
-    });
   }
   // tslint:disable-next-line:typedef
   onSubmit() {
-  this.profesorService.update(this.profesor).subscribe(data => this.gotoProfesorsList());
+  this.profesorService.update(this.profesor, this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => this.gotoProfesorsList());
   }
   // tslint:disable-next-line:typedef
   gotoProfesorsList() {

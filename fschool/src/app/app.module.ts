@@ -23,6 +23,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import { ProfessorMateriaComponent } from './profesors/components/professor-materia/professor-materia.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { StudentListComponent } from './students/components/student-list/student-list.component';
+import { StudentAddComponent } from './students/components/student-add/student-add.component';
+import { GroupListComponent } from './groups/components/group-list/group-list.component';
+import { GroupAddComponent } from './groups/components/group-add/group-add.component';
+import { GroupStudentsComponent } from './groups/components/group-students/group-students.component';
+import { AddPersonComponent } from './persons/component/add-person/add-person.component';
+import { LoginComponent } from './persons/component/login/login.component';
+import { GroupComponent } from './groups/components/group/group.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +48,15 @@ import {NgSelectModule} from '@ng-select/ng-select';
     DateListComponent,
     DatesAddComponent,
     TestComponent,
-    ProfessorMateriaComponent
+    ProfessorMateriaComponent,
+    StudentListComponent,
+    StudentAddComponent,
+    GroupListComponent,
+    GroupAddComponent,
+    GroupStudentsComponent,
+    AddPersonComponent,
+    LoginComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

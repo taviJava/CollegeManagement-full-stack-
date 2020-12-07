@@ -3,6 +3,7 @@ import {Classroom} from '../../model/classroom';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ClassroomService} from '../../service/classroom.service';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-classrooms-list',
@@ -15,15 +16,17 @@ classrooms: Classroom[];
   constructor(  private route: ActivatedRoute,
                 private router: Router,
                 private modalService: NgbModal,
-                private classroomservice: ClassroomService) { }
+                private classroomservice: ClassroomService,
+                private authService: AuthPersonService) { }
 
   ngOnInit(): void {
     this.getClassrooms();
   }
   // tslint:disable-next-line:typedef
   getClassrooms() {
-    this.classroomservice.findAll().subscribe(data => {
-      this.classrooms = data;
+    this.classroomservice.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
+      this.classrooms = JSON.parse(data) as Classroom[];
+      // this.profesors = JSON.parse(data) as Profesor[];
     });
 
 
@@ -38,7 +41,7 @@ classrooms: Classroom[];
   }
   // tslint:disable-next-line:typedef
   deleteClassroom(id: number){
-    this.classroomservice.delete(id).subscribe(result => this.getClassrooms());
+    this.classroomservice.delete(id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.getClassrooms());
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

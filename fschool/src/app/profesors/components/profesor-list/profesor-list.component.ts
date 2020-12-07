@@ -3,6 +3,7 @@ import {Profesor} from '../../model/profesor';
 import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-profesor-list',
@@ -15,15 +16,16 @@ profesors: Profesor [];
   constructor(private profesorService: ProfesorServiceService,
               private route: ActivatedRoute,
               private router: Router,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private authService: AuthPersonService) { }
 
   ngOnInit(): void {
     this.getProfesors();
   }
   // tslint:disable-next-line:typedef
   getProfesors() {
-    this.profesorService.findAll().subscribe(data => {
-      this.profesors = data;
+    this.profesorService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
+      this.profesors = JSON.parse(data) as Profesor[];
     });
   }
   // tslint:disable-next-line:typedef
@@ -36,7 +38,7 @@ profesors: Profesor [];
   }
   // tslint:disable-next-line:typedef
   deleteProfesor(id: number) {
-    this.profesorService.delete(id).subscribe(data => {
+    this.profesorService.delete(id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.getProfesors();
     });
   }

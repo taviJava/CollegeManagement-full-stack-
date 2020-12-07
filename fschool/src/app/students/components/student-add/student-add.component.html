@@ -1,0 +1,77 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #profesorEdit="ngForm">
+      <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" [(ngModel)]="student.firstName"
+               class="form-control"
+               id="firstname"
+               name="firstname"
+               placeholder="Enter your first name"
+               required #name="ngModel">
+      </div>
+      <div [hidden]="!name.pristine" class="alert alert-danger">Last Name is required</div>
+      <div class="form-group">
+        <label for="name">Last Name</label>
+        <input type="text" [(ngModel)]="student.lastName"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Enter your last name"
+               required #name="ngModel">
+      </div>
+      <div [hidden]="!name.pristine" class="alert alert-danger">CNP is required</div>
+      <div class="form-group">
+        <label for="cnp">CNP</label>
+        <input type="text" [(ngModel)]="student.cnp"
+               class="form-control"
+               id="cnp"
+               name="cnp"
+               placeholder="Enter your CNP"
+               required #cnp="ngModel">
+        <div [hidden]="!cnp.pristine" class="alert alert-danger">CNP is required</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" [(ngModel)]="student.email"
+               class="form-control"
+               id="email"
+               name="email"
+               placeholder="Enter your Email"
+               required #email="ngModel">
+        <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Password</label>
+        <input type="text" [(ngModel)]="student.password"
+               class="form-control"
+               id="password"
+               name="password"
+               placeholder="Enter your password"
+               required #passwords="ngModel">
+        <div [hidden]="!passwords.pristine" class="alert alert-danger">Password is required</div>
+      </div>
+      <div class="form-group">
+        <label for="repassword">Re type Password</label>
+        <input type="text" [(ngModel)]="password"
+               class="form-control"
+               id="repassword"
+               name="repassword"
+               placeholder="Enter your password"
+               required #pass="ngModel">
+        <div [hidden]="!pass.pristine" class="alert alert-danger">Password is required</div>
+        <div [hidden]="matchPassword()" class="alert alert-danger">Password don't match</div>
+      </div>
+      <div class="btn-group">
+        <a (click)="goToStudents()"
+           class="btn btn-secondary mx-1">Back
+        </a>
+        <button type="submit" [disabled]="!profesorEdit.form.valid"
+                class="btn btn-info">Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MateriaService} from '../../service/materia.service';
 import {Materia} from '../../model/materia';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {Student} from '../../../students/model/student';
 
 @Component({
   selector: 'app-materia-list',
@@ -15,7 +17,8 @@ materies: Materia[];
   constructor(private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
-              private materiaService: MateriaService
+              private materiaService: MateriaService,
+              private authService: AuthPersonService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +26,8 @@ materies: Materia[];
   }
   // tslint:disable-next-line:typedef
   getMateries(){
-    this.materiaService.findAll().subscribe(data => this.materies = data );
+    // tslint:disable-next-line:max-line-length
+    this.materiaService.findAll(this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => this.materies =  JSON.parse(data) as Materia[] );
   }
   // tslint:disable-next-line:typedef
   addMateria(){
@@ -35,7 +39,7 @@ materies: Materia[];
   }
   // tslint:disable-next-line:typedef
   deleteMateria(id: number){
-    this.materiaService.delete(id).subscribe(result => this.getMateries());
+    this.materiaService.delete(id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.getMateries());
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

@@ -17,14 +17,8 @@ public class MateriaModel {
     private Long id;
     private String name;
     private String description;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name ="materia_professor" ,
-            joinColumns =
-                    { @JoinColumn(name="materia_id",nullable = false, updatable = false)},
-            inverseJoinColumns =
-                    {@JoinColumn(name="professor_id",nullable = false, updatable = false)})
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "materiaModelList", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("materiaModelList")
-    @JsonFormat
     private List<ProfesorModel> professorModelList;
 
 

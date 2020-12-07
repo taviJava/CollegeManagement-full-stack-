@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Classroom} from '../../model/classroom';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClassroomService} from '../../service/classroom.service';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-classroom-add',
@@ -12,7 +13,8 @@ export class ClassroomAddComponent implements OnInit {
 classroom: Classroom = new Classroom();
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private classroomservice: ClassroomService
+              private classroomservice: ClassroomService,
+              private authService: AuthPersonService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ classroom: Classroom = new Classroom();
   }
   // tslint:disable-next-line:typedef
   onSubmit(){
-    this.classroomservice.save(this.classroom).subscribe(result => this.gotoClassrooms());
+    this.classroomservice.save(this.classroom , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.gotoClassrooms());
   }
 
 }

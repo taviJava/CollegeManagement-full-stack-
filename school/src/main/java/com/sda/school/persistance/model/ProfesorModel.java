@@ -13,9 +13,10 @@ public class ProfesorModel extends PersonModel {
 
     private String name;
     private String phoneNumber;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<MateriaModel> materiaModelList;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "profesorModel")
+    private List<DateModel> dateModelList;
 
 
     public String getName() {
@@ -42,4 +43,11 @@ public class ProfesorModel extends PersonModel {
         this.materiaModelList = materiaModelList;
     }
 
+    public List<DateModel> getDateModelList() {
+        return dateModelList;
+    }
+
+    public void setDateModelList(List<DateModel> dateModelList) {
+        this.dateModelList = dateModelList;
+    }
 }

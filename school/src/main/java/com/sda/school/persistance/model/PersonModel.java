@@ -10,6 +10,8 @@ public class PersonModel {
     private long id;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public long getId() {
         return id;
@@ -33,5 +35,13 @@ public class PersonModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

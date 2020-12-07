@@ -1,8 +1,14 @@
 package com.sda.school.service;
 
+import com.sda.school.persistance.dto.MateriaDto;
+import com.sda.school.persistance.dto.PersonDto;
 import com.sda.school.persistance.dto.ProfesorDto;
+import com.sda.school.persistance.model.MateriaModel;
+import com.sda.school.persistance.model.PersonModel;
 import com.sda.school.persistance.model.ProfesorModel;
+import com.sda.school.persistance.model.Role;
 import com.sda.school.repository.ProfesorRepository;
+import com.sda.school.security.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +17,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProfesorService {
+public class ProfesorService extends UserDetailService {
     @Autowired
     private ProfesorRepository profesorRepository;
+
 
     public void save(ProfesorDto profesorDto){
         ProfesorModel profesorModel = new ProfesorModel();
         profesorModel.setName(profesorDto.getName());
-        profesorModel.setPhoneNumber(profesorModel.getPhoneNumber());
+        profesorModel.setPhoneNumber(profesorDto.getPhoneNumber());
         profesorModel.setEmail(profesorDto.getEmail());
         profesorModel.setPassword("profesor");
+        profesorModel.setRole(Role.valueOf("Professor"));
         profesorRepository.save(profesorModel);
     }
     public void update(ProfesorDto profesorDto){
@@ -31,6 +39,15 @@ public class ProfesorService {
             profesorModel.setPhoneNumber(profesorModel.getPhoneNumber());
             profesorModel.setEmail(profesorDto.getEmail());
             profesorModel.setPassword(profesorDto.getPassword());
+            List<MateriaModel> materiaModels = new ArrayList<>();
+            for (MateriaDto materiaDto: profesorDto.getMateriaModelList()){
+                MateriaModel materiaModel = new MateriaModel();
+                materiaModel.setId(materiaDto.getId());
+                materiaModel.setName(materiaDto.getName());
+                materiaModel.setDescription(materiaDto.getDescription());
+                materiaModels.add(materiaModel);
+            }
+            profesorModel.setMateriaModelList(materiaModels);
             profesorRepository.save(profesorModel);
         }
     }

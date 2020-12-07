@@ -7,13 +7,16 @@
         <th class="align-middle" scope="col">DATE</th>
         <th class="align-middle" scope="col">START TIME</th>
         <th class="align-middle" scope="col">END TIME</th>
+        <th class="align-middle" scope="col">Professor Name</th>
+        <th class="align-middle" scope="col">Classroom Name</th>
+        <th class="align-middle" scope="col">Group Name</th>
         <th class="align-middle" scope="col">
           <div class="row d-flex align-items-center">
             <div class="col">
               Operations
             </div>
             <div class="col">
-              <button (click)="addDate()" class="btn btn-success">Add new Date</button>
+              <button *ngIf="hasPrivileges()" (click)="addDate()" class="btn btn-success">Add new Date</button>
             </div>
           </div>
         </th>
@@ -25,10 +28,13 @@
         <td>{{ schedule.date }}</td>
         <td>{{schedule.startTime}}</td>
         <td>{{schedule.endTime}}</td>
+        <td>{{schedule.profesorModel.name}}</td>
+        <td>{{schedule.classroomModel.name}}</td>
+        <td>{{schedule.groupModel.name}}</td>
         <td>
           <div class="btn-group">
-            <button (click)="editDate(schedule.id)" class="btn btn-primary mx-1">Edit</button>
-            <button (click)="delete(schedule.id)"  class="btn btn-danger">Delete</button>
+            <button *ngIf="hasPrivileges()" (click)="editDate(schedule.id)" class="btn btn-primary mx-1">Edit</button>
+            <button *ngIf="hasPrivileges()" (click)="delete(schedule.id)"  class="btn btn-danger">Delete</button>
           </div>
         </td>
       </tr>

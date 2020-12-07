@@ -12,7 +12,8 @@ public class GroupModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "groupModel")
+    private List<DateModel> dateModelList;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "groupModel", orphanRemoval = false)
     private List<StudentModel> studentModelList;
@@ -36,6 +37,13 @@ public class GroupModel {
         this.name = name;
     }
 
+    public List<DateModel> getDateModelList() {
+        return dateModelList;
+    }
+
+    public void setDateModelList(List<DateModel> dateModelList) {
+        this.dateModelList = dateModelList;
+    }
 
     public List<StudentModel> getStudentModelList() {
         return studentModelList;

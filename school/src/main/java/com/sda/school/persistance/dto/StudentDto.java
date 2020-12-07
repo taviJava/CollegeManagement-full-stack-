@@ -5,9 +5,11 @@ public class StudentDto {
     private long id;
     private String email;
     private String password;
+    private String role;
     private String cnp;
     private String lastName;
     private String firstName;
+    private String fullName;
     private PrezentDto prezentModel;
     private GroupDto groupModel;
 
@@ -73,5 +75,22 @@ public class StudentDto {
 
     public void setGroupModel(GroupDto groupModel) {
         this.groupModel = groupModel;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
+    public void setFullName() {
+        this.fullName = this.firstName + " " + this.lastName;
     }
 }

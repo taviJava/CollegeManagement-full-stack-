@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Materia} from '../model/materia';
-import {Profesor} from '../../profesors/model/profesor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +11,33 @@ private materiaUrl: string;
   constructor(private http: HttpClient) {
     this.materiaUrl = 'http://localhost:8080/materia';
   }
-  public findAll(): Observable<Materia[]> {
-    return this.http.get<Materia[]>(this.materiaUrl);
+  public findAll(token: string): Observable<any> {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<any>(this.materiaUrl , { headers, responseType: 'text' as 'json' });
   }
   // tslint:disable-next-line:typedef
-  public save(materia: Materia){
-   return this.http.post<Materia>(this.materiaUrl, materia);
+  public save(materia: Materia , token: string){
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<any>(this.materiaUrl, materia , { headers, responseType: 'text' as 'json' });
   }
   // tslint:disable-next-line:typedef
-  public update(materia: Materia) {
-    return this.http.put<Materia>(this.materiaUrl, materia);
+  public update(materia: Materia , token: string) {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<any>(this.materiaUrl, materia , { headers, responseType: 'text' as 'json' });
   }
-  public getById(id: number): Observable<any> {
-    return this.http.get(`${this.materiaUrl}/${id}`);
+  public getById(id: number , token: string): Observable<any> {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get(`${this.materiaUrl}/${id}` , { headers, responseType: 'text' as 'json' });
   }
   // tslint:disable-next-line:typedef
-  public delete(id: number) {
-    return this.http.delete(`${this.materiaUrl}/${id}`);
+  public delete(id: number , token: string) {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete(`${this.materiaUrl}/${id}` , { headers, responseType: 'text' as 'json' });
   }
 
 

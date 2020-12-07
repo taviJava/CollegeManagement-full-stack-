@@ -1,15 +1,21 @@
 package com.sda.school.persistance.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Date;
 import java.sql.Time;
 
 public class DateDto {
     private long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private Time startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private Time endTime;
     private ClassRoomDto classroomModel;
     private GroupDto groupModel;
+    private ProfesorDto profesorModel;
+
 
     public long getId() {
         return id;
@@ -45,6 +51,14 @@ public class DateDto {
 
     public ClassRoomDto getClassroomModel() {
         return classroomModel;
+    }
+
+    public ProfesorDto getProfesorModel() {
+        return profesorModel;
+    }
+
+    public void setProfesorModel(ProfesorDto profesorModel) {
+        this.profesorModel = profesorModel;
     }
 
     public void setClassroomModel(ClassRoomDto classroomModel) {

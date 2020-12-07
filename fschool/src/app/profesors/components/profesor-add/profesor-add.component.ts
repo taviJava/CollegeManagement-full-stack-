@@ -3,6 +3,7 @@ import {Profesor} from '../../model/profesor';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {AuthPersonService} from '../../../persons/service/auth-person.service';
 
 @Component({
   selector: 'app-profesor-add',
@@ -11,34 +12,33 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class ProfesorAddComponent implements OnInit {
   profesor: Profesor;
-  myGroup: FormGroup;
+  confirmPassword = '';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private profesorService: ProfesorServiceService,
+              private authService: AuthPersonService
               ) {
     this.profesor = new Profesor();
   }
 
   ngOnInit(): void {
-    this.myGroup = new FormGroup({
-      name: new FormControl(),
-      phone: new FormControl(),
-      materias: new FormControl()
-    });
-
+  this.profesor = new Profesor();
   }
 
   // tslint:disable-next-line:typedef
   onSubmit() {
-    this.profesor.name = this.myGroup.get('name').value;
-    this.profesor.phoneNumber = this.myGroup.get('phone').value;
-    this.profesorService.save(this.profesor).subscribe(result => this.gotoProfesorsList());
+    this.profesorService.save(this.profesor, this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => this.gotoProfesorsList());
   }
 
   // tslint:disable-next-line:typedef
   gotoProfesorsList() {
     console.log('product added');
     this.router.navigate(['/professors']);
+  }
+  matchPassword(): boolean{
+    if (this.confirmPassword === this.profesor.password){
+      return true;
+    }
   }
 }

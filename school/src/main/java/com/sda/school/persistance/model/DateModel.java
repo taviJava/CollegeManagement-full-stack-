@@ -19,16 +19,14 @@ public class DateModel {
     private Time startTime;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private Time endTime;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    private GroupModel groupModel;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProfesorModel profesorModel;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private ClassroomModel classroomModel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private GroupModel groupModel;
-
-    public DateModel() {
-    }
 
     public long getId() {
         return id;
@@ -76,5 +74,13 @@ public class DateModel {
 
     public void setGroupModel(GroupModel groupModel) {
         this.groupModel = groupModel;
+    }
+
+    public ProfesorModel getProfesorModel() {
+        return profesorModel;
+    }
+
+    public void setProfesorModel(ProfesorModel profesorModel) {
+        this.profesorModel = profesorModel;
     }
 }
