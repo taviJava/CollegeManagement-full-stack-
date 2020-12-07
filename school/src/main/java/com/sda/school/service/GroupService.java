@@ -43,12 +43,30 @@ public class GroupService {
             groupRepository.save(groupModel);
         }
     }
+    public void deleteStudent(GroupDto groupDto, long studId){
+        Optional<GroupModel> groupModelOptional = groupRepository.findById(groupDto.getId());
+        if (groupModelOptional.isPresent()){
+            GroupModel groupModel = groupModelOptional.get();
+            Optional<StudentModel> studentModelOptional = studentRepository.findById(studId);
+            if (studentModelOptional.isPresent()){
+                StudentModel studentModel = studentModelOptional.get();
+                List<StudentModel> studentModels = groupModel.getStudentModelList();
+                studentModels.removeIf(student -> student.getId() == studentModel.getId());
+                System.out.println(studentModels.size());
+                studentModel.setGroupModel(null);
+                studentRepository.save(studentModel);
+                groupModel.setStudentModelList(studentModels);
+                System.out.println(studId);
+                groupRepository.save(groupModel);
+            }
+        }
+    }
 
     public void delete(long id){
         groupRepository.deleteById(id);
     }
 
-  public  List<GroupDto> getAll(){
+    public  List<GroupDto> getAll(){
         List<GroupModel> groupModels = groupRepository.findAll();
         List<GroupDto> groupDtos = new ArrayList<>();
         for (GroupModel groupModel: groupModels){
@@ -59,15 +77,26 @@ public class GroupService {
         }
         return groupDtos;
     }
-   public GroupDto getOne(long id){
-       Optional<GroupModel> groupModelOptional = groupRepository.findById(id);
-       GroupDto groupDto = new GroupDto();
-       if (groupModelOptional.isPresent()){
-           GroupModel groupModel = groupModelOptional.get();
-          groupDto.setName(groupModel.getName());
-          groupDto.setId(groupModel.getId());
-       }
-       return groupDto;
-   }
+    public GroupDto getOne(long id){
+        Optional<GroupModel> groupModelOptional = groupRepository.findById(id);
+        GroupDto groupDto = new GroupDto();
+        if (groupModelOptional.isPresent()){
+            GroupModel groupModel = groupModelOptional.get();
+            groupDto.setName(groupModel.getName());
+            groupDto.setId(groupModel.getId());
+            List<StudentDto> studentDtos = new ArrayList<>();
+            for (StudentModel studentModel: groupModel.getStudentModelList()){
+                StudentDto studentDto = new StudentDto();
+                studentDto.setFirstName(studentModel.getFirstName());
+                studentDto.setLastName(studentModel.getLastName());
+                studentDto.setEmail(studentModel.getEmail());
+                studentDto.setCnp(studentModel.getCnp());
+                studentDto.setId(studentModel.getId());
+                studentDtos.add(studentDto);
+            }
+            groupDto.setStudentModelList(studentDtos);
+        }
+        return groupDto;
+    }
 
 }

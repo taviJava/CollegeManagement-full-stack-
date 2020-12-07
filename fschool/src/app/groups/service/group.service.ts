@@ -29,6 +29,12 @@ export class GroupService {
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.put<any>(this.groupUrl, group , { headers, responseType: 'text' as 'json' });
   }
+  // tslint:disable-next-line:typedef
+  public deleteStud(group: Group , idStud: number, token: string) {
+    const tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<any>(`${this.groupUrl}/student/${idStud}`, group , { headers, responseType: 'text' as 'json' });
+  }
   public getById(id: number , token: string): Observable<any> {
     const tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

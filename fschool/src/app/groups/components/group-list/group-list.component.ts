@@ -60,4 +60,8 @@ export class GroupListComponent implements OnInit {
   addStudents(id: number){
     this.router.navigate(['group-students/' + id]);
   }
+  // tslint:disable-next-line:typedef
+  viewGroup(id: number){
+  this.router.navigate(['group/' + id]);
+}
 }

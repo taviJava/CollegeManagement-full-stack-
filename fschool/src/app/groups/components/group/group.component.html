@@ -13,14 +13,13 @@
               Operations
             </div>
             <div class="col">
-              <button (click)="goToAddStudents()" class="btn btn-success">Add Student</button>
             </div>
           </div>
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let stud of students">
+      <tr *ngFor="let stud of group.studentModelList">
         <td>{{ stud.firstName }}</td>
         <td>{{ stud.lastName }}</td>
         <td>{{stud.email}}</td>
@@ -55,3 +54,4 @@
     <button type="button" class="btn btn-danger" (click)="modal.close('Delete click')">Delete</button>
   </div>
 </ng-template>
+

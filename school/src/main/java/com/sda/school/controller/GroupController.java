@@ -43,4 +43,9 @@ public class GroupController {
     public void update(@RequestBody GroupDto groupDto) {
         groupService.update(groupDto);
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/group/student/{idStd}")
+    public void update(@RequestBody GroupDto groupDto,@PathVariable (name = "idStd") long idStud) {
+        groupService.deleteStudent(groupDto, idStud);
+    }
 }
