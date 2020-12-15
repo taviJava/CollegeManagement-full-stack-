@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,18 @@ public class MateriaModel {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "materiaModelList", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("materiaModelList")
     private List<ProfesorModel> professorModelList;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
+    private List<EvidenceModel> evidences;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "materia")
+    private List<DateModel> dates = new ArrayList<>();
 
+    public List<EvidenceModel> getEvidences() {
+        return evidences;
+    }
+
+    public void setEvidences(List<EvidenceModel> evidences) {
+        this.evidences = evidences;
+    }
 
     public Long getId() {
         return id;
@@ -54,4 +66,11 @@ public class MateriaModel {
         this.professorModelList = professorModelList;
     }
 
+    public List<DateModel> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<DateModel> dates) {
+        this.dates = dates;
+    }
 }

@@ -12,7 +12,7 @@
               Operations
             </div>
             <div class="col">
-              <button (click)="addMateria()" class="btn btn-success">Add Materia</button>
+              <button *ngIf="hasAdmPrivileges()" (click)="addMateria()" class="btn btn-success">Add Materia</button>
             </div>
           </div>
         </th>
@@ -25,8 +25,8 @@
         <td>{{materia.description}}</td>
         <td>
           <div class="btn-group">
-            <button (click)="editMateria(materia.id)" class="btn btn-primary mx-1">Edit</button>
-            <button (click)="open(content,materia.id)"  class="btn btn-danger">Delete</button>
+            <button *ngIf="hasAdmPrivileges()" (click)="editMateria(materia.id)" class="btn btn-primary mx-1">Edit</button>
+            <button *ngIf="hasAdmPrivileges()" (click)="open(content,materia.id)"  class="btn btn-danger">Delete</button>
           </div>
         </td>
       </tr>

@@ -13,6 +13,7 @@ import {GroupService} from '../../../groups/service/group.service';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
 import {Student} from '../../../students/model/student';
 import {Person} from '../../../persons/model/person';
+import {Materia} from '../../../materies/model/materia';
 
 
 @Component({
@@ -36,6 +37,10 @@ dateJava: DateJavaModel = new DateJavaModel();
   dropdownSettingsGroup: IDropdownSettings = {};
   groups: Group[] = [];
   selectedGroups: Group[] = [];
+  dropdownSettingsMateria: IDropdownSettings = {};
+  selectedMateria: Materia[] = [];
+  materias: Materia[] = [];
+  prof: Profesor = new Profesor();
   constructor(private route: ActivatedRoute,
               private router: Router,
               private dateservice: DateService,
@@ -47,12 +52,15 @@ dateJava: DateJavaModel = new DateJavaModel();
   ) {  }
 
   ngOnInit(): void {
+    this.prof = new Profesor();
+    this.materias = [];
     this.professors = [];
     this.selectedProf = [];
     this.groups = [];
     this.selectedGroups = [];
     this.classes = [];
     this.selectedClasses = [];
+    this.selectedMateria = [];
     this.dropdownSettingsProf = {
       singleSelection: true,
       idField: 'id',
@@ -63,6 +71,15 @@ dateJava: DateJavaModel = new DateJavaModel();
       allowSearchFilter: true,
     };
     this.dropdownSettingsClass = {
+      singleSelection: true,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
+    this.dropdownSettingsMateria = {
       singleSelection: true,
       idField: 'id',
       textField: 'name',
@@ -101,8 +118,9 @@ dateJava: DateJavaModel = new DateJavaModel();
     this.dateJava.groupModel = this.selectedGroups[0];
     this.dateJava.classroomModel = this.selectedClasses[0];
     this.dateJava.profesorModel = this.selectedProf[0];
+    this.dateJava.materia = this.selectedMateria[0];
     // tslint:disable-next-line:max-line-length
-    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => {
+    this.dateservice.save(this.dateJava, this.dateJava.profesorModel.id, this.dateJava.classroomModel.id, this.dateJava.groupModel.id , this.dateJava.materia.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(result => {
       const data = JSON.parse(result);
       this.message = data.message;
       this.open(content);
@@ -135,7 +153,16 @@ dateJava: DateJavaModel = new DateJavaModel();
   onItemSelect(item: any) {
     console.log(item);
   }
-
+  // tslint:disable-next-line:typedef
+ onProfSelect(prof: any){
+   console.log(prof);
+   this.profService.getById(prof.id , this.authService.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
+     this.prof = new Profesor();
+     this.prof = JSON.parse(data) as Profesor;
+     this.materias = this.prof.materiaModelList;
+     console.log(this.materias);
+   });
+ }
   // tslint:disable-next-line:typedef
   onSelectAll(items: any) {
     console.log(items);

@@ -21,29 +21,34 @@ import {GroupStudentsComponent} from './groups/components/group-students/group-s
 import {AddPersonComponent} from './persons/component/add-person/add-person.component';
 import {LoginComponent} from './persons/component/login/login.component';
 import {GroupComponent} from './groups/components/group/group.component';
+import {AdminGuardService} from './persons/service/admin-guard.service';
+import {DateProfComponent} from './dates/components/date-prof/date-prof.component';
+import {DateEvidenceComponent} from './dates/components/date-evidence/date-evidence.component';
 
 const routes: Routes = [
-  {path: 'professors', component: ProfesorListComponent},
-  {path: 'addprofesor', component: ProfesorAddComponent},
-  {path: 'editprofesor/:id', component: ProfesorEditComponent},
-  {path: 'deleteprofesor/:id', component: ProfesorListComponent},
-  {path: 'classrooms', component: ClassroomsListComponent},
-  {path: 'addClassroom', component: ClassroomAddComponent},
-  {path: 'editClassroom/:id', component: ClassroomEditComponent},
-  {path: 'materies', component: MateriaListComponent},
-  {path: 'addmateria', component: AddMateriaComponent},
-  {path: 'editmateria/:id', component: MateriaEditComponent},
-  {path: 'dates', component: DateListComponent},
-  {path: 'addDate', component: DatesAddComponent},
+  {path: 'professors', component: ProfesorListComponent, canActivate: [AdminGuardService]},
+  {path: 'addprofesor', component: ProfesorAddComponent, canActivate: [AdminGuardService]},
+  {path: 'editprofesor/:id', component: ProfesorEditComponent, canActivate: [AdminGuardService]},
+  {path: 'deleteprofesor/:id', component: ProfesorListComponent, canActivate: [AdminGuardService]},
+  {path: 'classrooms', component: ClassroomsListComponent, canActivate: [AdminGuardService]},
+  {path: 'addClassroom', component: ClassroomAddComponent, canActivate: [AdminGuardService]},
+  {path: 'editClassroom/:id', component: ClassroomEditComponent, canActivate: [AdminGuardService]},
+  {path: 'materies', component: MateriaListComponent, canActivate: [AdminGuardService]},
+  {path: 'addmateria', component: AddMateriaComponent, canActivate: [AdminGuardService]},
+  {path: 'editmateria/:id', component: MateriaEditComponent, canActivate: [AdminGuardService]},
+  {path: 'dates', component: DateListComponent, canActivate: [AdminGuardService]},
+  {path: 'addDate', component: DatesAddComponent, canActivate: [AdminGuardService]},
   {path: '', component: LoginComponent},
-  {path: 'profmateria/:id', component: ProfessorMateriaComponent},
-  {path: 'students', component: StudentListComponent},
-  {path: 'studentadd', component: StudentAddComponent},
-  {path: 'groups', component: GroupListComponent},
-  {path: 'addgroup', component: GroupAddComponent},
-  {path: 'group-students/:id', component: GroupStudentsComponent},
+  {path: 'profmateria/:id', component: ProfessorMateriaComponent, canActivate: [AdminGuardService]},
+  {path: 'students', component: StudentListComponent, canActivate: [AdminGuardService]},
+  {path: 'studentadd', component: StudentAddComponent, canActivate: [AdminGuardService]},
+  {path: 'groups', component: GroupListComponent, canActivate: [AdminGuardService]},
+  {path: 'addgroup', component: GroupAddComponent, canActivate: [AdminGuardService]},
+  {path: 'group-students/:id', component: GroupStudentsComponent, canActivate: [AdminGuardService]},
   {path: 'addPerson', component: AddPersonComponent},
-  {path: 'group/:id', component: GroupComponent},
+  {path: 'group/:id', component: GroupComponent, canActivate: [AdminGuardService]},
+  {path: 'date/prof', component: DateProfComponent, canActivate: [AdminGuardService]},
+  {path: 'evidence/:id', component: DateEvidenceComponent, canActivate: [AdminGuardService]},
 ];
 
 @NgModule({

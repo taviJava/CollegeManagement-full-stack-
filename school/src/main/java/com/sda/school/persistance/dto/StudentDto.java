@@ -10,7 +10,7 @@ public class StudentDto {
     private String lastName;
     private String firstName;
     private String fullName;
-    private PrezentDto prezentModel;
+    private String prezent;
     private GroupDto groupModel;
 
     public long getId() {
@@ -61,13 +61,6 @@ public class StudentDto {
         this.firstName = firstName;
     }
 
-    public PrezentDto getPrezentModel() {
-        return prezentModel;
-    }
-
-    public void setPrezentModel(PrezentDto prezentModel) {
-        this.prezentModel = prezentModel;
-    }
 
     public GroupDto getGroupModel() {
         return groupModel;
@@ -89,6 +82,13 @@ public class StudentDto {
         this.role = role;
     }
 
+    public String getPrezent() {
+        return prezent;
+    }
+
+    public void setPrezent(String prezent) {
+        this.prezent = prezent;
+    }
 
     public void setFullName() {
         this.fullName = this.firstName + " " + this.lastName;

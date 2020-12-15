@@ -4,6 +4,7 @@ import {ProfesorServiceService} from '../../service/profesor-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {Person} from '../../../persons/model/person';
 
 @Component({
   selector: 'app-profesor-list',
@@ -11,8 +12,9 @@ import {AuthPersonService} from '../../../persons/service/auth-person.service';
   styleUrls: ['./profesor-list.component.css']
 })
 export class ProfesorListComponent implements OnInit {
-profesors: Profesor [];
+  profesors: Profesor [];
   closeResult = '';
+  currentUser: Person = new Person();
   constructor(private profesorService: ProfesorServiceService,
               private route: ActivatedRoute,
               private router: Router,
@@ -21,6 +23,8 @@ profesors: Profesor [];
 
   ngOnInit(): void {
     this.getProfesors();
+    this.currentUser = new Person();
+    this.currentUser = this.authService.returnUser();
   }
   // tslint:disable-next-line:typedef
   getProfesors() {
@@ -64,5 +68,11 @@ profesors: Profesor [];
   // tslint:disable-next-line:typedef
   addProfesorMateria(id: number) {
     this.router.navigate(['/profmateria/' + id]);
+  }
+
+  hasAdmPrivileges(): boolean {
+    if (this.currentUser.role === 'Admin') {
+      return true;
+    }
   }
 }

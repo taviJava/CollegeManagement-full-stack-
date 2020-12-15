@@ -1,0 +1,48 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th class="align-middle" scope="col">Student First Name</th>
+        <th class="align-middle" scope="col">Student Last Name</th>
+        <th class="align-middle" scope="col">DATE</th>
+        <th class="align-middle" scope="col">START TIME</th>
+        <th class="align-middle" scope="col">END TIME</th>
+        <th class="align-middle" scope="col">Materia Name</th>
+        <th class="align-middle" scope="col">Prezent</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ev of evidences">
+        <td>{{ ev.student.firstName }}</td>
+        <td>{{ ev.student.lastName }}</td>
+        <td>{{ ev.date.date }}</td>
+        <td>{{ev.date.startTime}}</td>
+        <td>{{ev.date.endTime}}</td>
+        <td>{{ev.materia.name}}</td>
+        <td>
+          <div class="form-group">
+            <label for="present"></label>
+            <select type="text" [(ngModel)]="ev.prezent"
+                    class="form-control"
+                    id="present"
+                    name="present"
+                    placeholder="{{ev.prezent}}"
+            >
+              <option *ngFor="let ut of prezence" [ngValue]="ut">{{ut}}</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class=" my-5">
+      <div class="card-body">
+        <button
+                class="btn btn-info">Submit
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

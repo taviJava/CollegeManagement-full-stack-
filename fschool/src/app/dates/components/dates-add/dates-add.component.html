@@ -32,14 +32,29 @@
           [(ngModel)]="selectedProf"
           [ngModelOptions]="{standalone: true}"
           [settings]="dropdownSettingsProf"
-          (onSelect)="onItemSelect($event)"
+          (onSelect)="onProfSelect($event)"
           (onSelectAll)="onSelectAll($event)"
         >
           <div [hidden]="" class="alert alert-danger">Professors is required</div>
         </ng-multiselect-dropdown>
       </div>
       <div class="form-group">
-        <label for="group">Professors</label>
+        <label for="materia">Materias</label>
+        <ng-multiselect-dropdown
+          [data]="materias"
+          [placeholder]="'Select the Professor'"
+          id="materia"
+          [(ngModel)]="selectedMateria"
+          [ngModelOptions]="{standalone: true}"
+          [settings]="dropdownSettingsProf"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+          <div [hidden]="" class="alert alert-danger">Materia is required</div>
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="form-group">
+        <label for="group">Groups</label>
         <ng-multiselect-dropdown
           [data]="groups"
           [placeholder]="'Select the Group'"
@@ -50,7 +65,7 @@
           (onSelect)="onItemSelect($event)"
           (onSelectAll)="onSelectAll($event)"
         >
-          <div [hidden]="" class="alert alert-danger">Classroom is required</div>
+          <div [hidden]="" class="alert alert-danger">Groups is required</div>
         </ng-multiselect-dropdown>
       </div>
       <div class="form-group">

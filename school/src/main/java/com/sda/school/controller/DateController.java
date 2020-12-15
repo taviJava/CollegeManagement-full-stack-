@@ -23,9 +23,9 @@ public class DateController {
         return dateService.getAll();
     }
     @PreAuthorize("hasRole('ADMIN') || hasRole('PROFESSOR')")
-    @PostMapping("/date/{profId}/{groupId}/{classId}")
-    public ResponseMessage addDate(@RequestBody DateDto dateDto, @PathVariable(name = "profId") Long profId, @PathVariable(name = "groupId") Long groupId, @PathVariable(name = "classId") Long classId) {
-        return new ResponseMessage(dateService.save(dateDto,profId,groupId,classId));
+    @PostMapping("/date/{profId}/{groupId}/{classId}/{matId}")
+    public ResponseMessage addDate(@RequestBody DateDto dateDto,@PathVariable(name = "matId") Long matId, @PathVariable(name = "profId") Long profId, @PathVariable(name = "groupId") Long groupId, @PathVariable(name = "classId") Long classId) {
+        return new ResponseMessage(dateService.save(dateDto,profId,groupId,classId,matId));
     }
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/date/{id}")
@@ -36,5 +36,10 @@ public class DateController {
     @PutMapping("/date")
     public void updateDate(@RequestBody DateDto dateDto) {
         dateService.update(dateDto);
+    }
+    @PreAuthorize("hasRole('PROFESSOR')")
+    @GetMapping("/date/prof/{idProf}")
+    public List<DateDto> getDataModelList(@PathVariable(name = "idProf") Long idProf) {
+        return dateService.getDatesByProfessor(idProf);
     }
 }

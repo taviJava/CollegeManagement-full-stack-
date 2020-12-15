@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
+
 @Entity
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class DateModel {
@@ -26,7 +28,10 @@ public class DateModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private ClassroomModel classroomModel;
-
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL , mappedBy = "date")
+    private List<EvidenceModel> evidences;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private MateriaModel materia;
 
     public long getId() {
         return id;
@@ -82,5 +87,21 @@ public class DateModel {
 
     public void setProfesorModel(ProfesorModel profesorModel) {
         this.profesorModel = profesorModel;
+    }
+
+    public List<EvidenceModel> getEvidences() {
+        return evidences;
+    }
+
+    public MateriaModel getMateria() {
+        return materia;
+    }
+
+    public void setMateria(MateriaModel materia) {
+        this.materia = materia;
+    }
+
+    public void setEvidences(List<EvidenceModel> evidences) {
+        this.evidences = evidences;
     }
 }

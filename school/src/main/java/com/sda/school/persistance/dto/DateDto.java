@@ -1,6 +1,8 @@
 package com.sda.school.persistance.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sda.school.persistance.model.MateriaModel;
+
 import java.sql.Date;
 import java.sql.Time;
 
@@ -15,6 +17,7 @@ public class DateDto {
     private ClassRoomDto classroomModel;
     private GroupDto groupModel;
     private ProfesorDto profesorModel;
+    private MateriaDto materia;
 
 
     public long getId() {

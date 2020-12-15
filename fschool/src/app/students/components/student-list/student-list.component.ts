@@ -4,6 +4,7 @@ import {StudentService} from '../../service/student.service';
 import {Student} from '../../model/student';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
+import {Person} from '../../../persons/model/person';
 
 @Component({
   selector: 'app-student-list',
@@ -12,7 +13,8 @@ import {AuthPersonService} from '../../../persons/service/auth-person.service';
 })
 export class StudentListComponent implements OnInit {
  students: Student[] = [];
-  closeResult = '';
+ closeResult = '';
+ currentUser: Person = new Person();
    constructor(private route: ActivatedRoute,
                private router: Router,
                private studentService: StudentService,
@@ -25,6 +27,8 @@ export class StudentListComponent implements OnInit {
        this.students = [];
        this.students =  JSON.parse(result) as Student[];
      });
+     this.currentUser = new Person();
+     this.currentUser = this.authService.returnUser();
   }
 // tslint:disable-next-line:typedef
 goToAddStudents(){
@@ -58,5 +62,10 @@ goToAddStudents(){
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+  hasAdmPrivileges(): boolean{
+    if (this.currentUser.role === 'Admin'){
+      return true;
+    }
   }
 }

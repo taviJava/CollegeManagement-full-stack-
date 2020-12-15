@@ -7,5 +7,5 @@ export class Student {
   lastName: string;
   firstName: string;
   fullName: string;
-  prezentModel: any;
+  prezent: string;
 }

@@ -5,6 +5,7 @@ import {DateService} from '../../service/date.service';
 import {DateJavaModel} from '../../model/date-java-model';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
 import {Classroom} from '../../../classrooms/model/classroom';
+import {Person} from '../../../persons/model/person';
 
 @Component({
   selector: 'app-date-list',
@@ -14,6 +15,7 @@ import {Classroom} from '../../../classrooms/model/classroom';
 export class DateListComponent implements OnInit {
 datesJava: DateJavaModel[];
 closeResult = '';
+currentUser: Person = new Person();
   constructor(private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
@@ -21,6 +23,8 @@ closeResult = '';
               private authService: AuthPersonService) { }
 
   ngOnInit(): void {
+  this.currentUser = new Person();
+  this.currentUser = this.authService.returnUser();
   this.getDates();
   }
 // tslint:disable-next-line:typedef
@@ -60,12 +64,14 @@ closeResult = '';
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  hasPrivileges(): boolean{
-    if (this.authService.person.role === 'Admin'){
-      return true;
-    }
-    if (this.authService.person.role === 'Professor'){
+  hasAdmPrivileges(): boolean{
+    if (this.currentUser.role === 'Admin'){
       return true;
     }
       }
+  hasProfPrivileges(): boolean{
+    if (this.currentUser.role === 'Professor'){
+      return true;
+    }
+  }
 }

@@ -6,7 +6,7 @@ public class MateriaDto {
     private Long id;
     private String name;
     private String description;
-    private List<PrezentDto> professorModelList;
+    private List<ProfesorDto> professorModelList;
 
     public Long getId() {
         return id;
@@ -32,11 +32,12 @@ public class MateriaDto {
         this.description = description;
     }
 
-    public List<PrezentDto> getProfessorModelList() {
+    public List<ProfesorDto> getProfessorModelList() {
         return professorModelList;
     }
 
-    public void setProfessorModelList(List<PrezentDto> professorModelList) {
+    public void setProfessorModelList(List<ProfesorDto> professorModelList) {
         this.professorModelList = professorModelList;
     }
 }
+

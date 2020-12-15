@@ -7,6 +7,7 @@ import {Group} from '../../model/group';
 import {GroupService} from '../../service/group.service';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
 import {Student} from '../../../students/model/student';
+import {Person} from '../../../persons/model/person';
 
 @Component({
   selector: 'app-group-list',
@@ -16,6 +17,7 @@ import {Student} from '../../../students/model/student';
 export class GroupListComponent implements OnInit {
   groups: Group[];
   closeResult = '';
+  currentUser: Person = new Person();
   constructor(private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
@@ -24,6 +26,8 @@ export class GroupListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.currentUser = new Person();
+    this.currentUser = this.authService.returnUser();
     this.getGroups();
   }
   // tslint:disable-next-line:typedef
@@ -64,4 +68,10 @@ export class GroupListComponent implements OnInit {
   viewGroup(id: number){
   this.router.navigate(['group/' + id]);
 }
+  hasAdmPrivileges(): boolean{
+    if (this.currentUser.role === 'Admin'){
+      return true;
+    }
+  }
+
 }

@@ -1,6 +1,7 @@
 import {Classroom} from '../../classrooms/model/classroom';
 import {Group} from '../../groups/model/group';
 import {Profesor} from '../../profesors/model/profesor';
+import {Materia} from '../../materies/model/materia';
 
 export class DateJavaModel {
   id: number;
@@ -10,4 +11,5 @@ export class DateJavaModel {
   classroomModel: Classroom;
   groupModel: Group;
   profesorModel: Profesor;
+  materia: Materia;
 }

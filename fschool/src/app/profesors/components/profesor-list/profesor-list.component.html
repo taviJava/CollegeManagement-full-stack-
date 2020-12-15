@@ -13,7 +13,7 @@
               Operations
             </div>
             <div class="col">
-              <button (click)="addUser()" class="btn btn-success">Add User</button>
+              <button *ngIf="hasAdmPrivileges()" (click)="addUser()" class="btn btn-success">Add User</button>
             </div>
           </div>
         </th>
@@ -27,9 +27,9 @@
         <td>{{profesor.phoneNumber}}</td>
         <td>
           <div class="btn-group">
-            <button (click)="editProfesor(profesor.id)" class="btn btn-primary mx-1">Edit</button>
-            <button (click)="open(content,profesor.id)" class="btn btn-danger">Delete</button>
-            <button (click)="addProfesorMateria(profesor.id)" class="btn-secondary mx-2"> Add Materias </button>
+            <button *ngIf="hasAdmPrivileges()" (click)="editProfesor(profesor.id)" class="btn btn-primary mx-1">Edit</button>
+            <button *ngIf="hasAdmPrivileges()" (click)="open(content,profesor.id)" class="btn btn-danger">Delete</button>
+            <button *ngIf="hasAdmPrivileges()" (click)="addProfesorMateria(profesor.id)" class="btn-secondary mx-2"> Add Materias </button>
           </div>
         </td>
       </tr>

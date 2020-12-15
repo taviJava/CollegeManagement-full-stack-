@@ -25,7 +25,6 @@ export class MenuComponent implements OnInit {
       this.isLoggedIn = data;
       this.currentUser = new Person();
       this.currentUser = this.authService.person;
-      console.log(this.currentUser);
     });
   }
   // tslint:disable-next-line:typedef

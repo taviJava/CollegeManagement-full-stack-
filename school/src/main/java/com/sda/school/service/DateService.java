@@ -4,14 +4,8 @@ import com.sda.school.persistance.dto.ClassRoomDto;
 import com.sda.school.persistance.dto.DateDto;
 import com.sda.school.persistance.dto.GroupDto;
 import com.sda.school.persistance.dto.ProfesorDto;
-import com.sda.school.persistance.model.ClassroomModel;
-import com.sda.school.persistance.model.DateModel;
-import com.sda.school.persistance.model.GroupModel;
-import com.sda.school.persistance.model.ProfesorModel;
-import com.sda.school.repository.ClassroomRepository;
-import com.sda.school.repository.DateRepository;
-import com.sda.school.repository.GroupRepository;
-import com.sda.school.repository.ProfesorRepository;
+import com.sda.school.persistance.model.*;
+import com.sda.school.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -28,8 +22,12 @@ public class DateService {
     private ClassroomRepository classroomRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private EvidenceService evidenceService;
+    @Autowired
+    private MateriaRepository materiaRepository;
 
-    public String save(DateDto dateDto, long profId, long groupId, long classId){
+    public String save(DateDto dateDto, long profId, long groupId, long classId, long matId){
         DateModel dateModel = new DateModel();
         dateModel.setDate(dateDto.getDate());
         dateModel.setStartTime(dateDto.getStartTime());
@@ -39,10 +37,16 @@ public class DateService {
             ProfesorModel profesorModel = profesorModelOptional.get();
             dateModel.setProfesorModel(profesorModel);
         }
+        Optional<MateriaModel>  materiaModelOptional = materiaRepository.findById(matId);
+        if (materiaModelOptional.isPresent()){
+            MateriaModel materiaModel = materiaModelOptional.get();
+            dateModel.setMateria(materiaModel);
+        }
         Optional<GroupModel> groupModelOptional = groupRepository.findById(groupId);
         if (groupModelOptional.isPresent()){
             GroupModel groupModel = groupModelOptional.get();
             dateModel.setGroupModel(groupModel);
+            evidenceService.createEvidences(groupModel,dateModel);
         }
         Optional<ClassroomModel> classroomModelOptional = classroomRepository.findById(classId);
         if (classroomModelOptional.isPresent()){
@@ -149,5 +153,29 @@ public class DateService {
             dateDto.setEndTime(dateModel.getEndTime());
         }
         return dateDto;
+    }
+
+    public List<DateDto> getDatesByProfessor(long idProf){
+        List<DateModel> dateModels = dateRepository.findAllByProfesorModel_Id(idProf);
+        List<DateDto> dateDtos = new ArrayList<>();
+        for (DateModel dateModel: dateModels){
+            DateDto dateDto = new DateDto();
+            dateDto.setId(dateModel.getId());
+            dateDto.setDate(dateModel.getDate());
+            dateDto.setStartTime(dateModel.getStartTime());
+            dateDto.setEndTime(dateModel.getEndTime());
+            ProfesorDto profesorDto = new ProfesorDto();
+            profesorDto.setName(dateModel.getProfesorModel().getName());
+            dateDto.setProfesorModel(profesorDto);
+            GroupDto groupDto = new GroupDto();
+            groupDto.setName(dateModel.getGroupModel().getName());
+            groupDto.setId(dateModel.getGroupModel().getId());
+            dateDto.setGroupModel(groupDto);
+            ClassRoomDto classRoomDto = new ClassRoomDto();
+            classRoomDto.setName(dateModel.getClassroomModel().getName());
+            dateDto.setClassroomModel(classRoomDto);
+            dateDtos.add(dateDto);
+        }
+        return dateDtos;
     }
 }

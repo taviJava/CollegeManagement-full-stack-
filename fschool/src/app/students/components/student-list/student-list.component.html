@@ -13,7 +13,7 @@
               Operations
             </div>
             <div class="col">
-              <button (click)="goToAddStudents()" class="btn btn-success">Add Student</button>
+              <button *ngIf="hasAdmPrivileges()" (click)="goToAddStudents()" class="btn btn-success">Add Student</button>
             </div>
           </div>
         </th>
@@ -28,7 +28,7 @@
         <td>
           <div class="btn-group">
 
-            <button (click)="open(content,stud.id)" class="btn btn-danger">Delete</button>
+            <button *ngIf="hasAdmPrivileges()" (click)="open(content,stud.id)" class="btn btn-danger">Delete</button>
 
           </div>
         </td>

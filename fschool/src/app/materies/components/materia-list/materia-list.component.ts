@@ -5,6 +5,7 @@ import {MateriaService} from '../../service/materia.service';
 import {Materia} from '../../model/materia';
 import {AuthPersonService} from '../../../persons/service/auth-person.service';
 import {Student} from '../../../students/model/student';
+import {Person} from '../../../persons/model/person';
 
 @Component({
   selector: 'app-materia-list',
@@ -14,6 +15,7 @@ import {Student} from '../../../students/model/student';
 export class MateriaListComponent implements OnInit {
 materies: Materia[];
   closeResult = '';
+  currentUser: Person = new Person();
   constructor(private route: ActivatedRoute,
               private router: Router,
               private modalService: NgbModal,
@@ -22,6 +24,8 @@ materies: Materia[];
   ) { }
 
   ngOnInit(): void {
+    this.currentUser = new Person();
+    this.currentUser = this.authService.returnUser();
     this.getMateries();
   }
   // tslint:disable-next-line:typedef
@@ -59,6 +63,10 @@ materies: Materia[];
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-
+  hasAdmPrivileges(): boolean{
+    if (this.currentUser.role === 'Admin'){
+      return true;
+    }
+  }
 
 }

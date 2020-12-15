@@ -66,6 +66,15 @@ public class ProfesorService extends UserDetailService {
             profesorDto.setPassword(profesorModel.getPassword());
             profesorDto.setName(profesorModel.getName());
             profesorDto.setPhoneNumber(profesorModel.getPhoneNumber());
+            List<MateriaDto> materiaDtos = new ArrayList<>();
+            for (MateriaModel materiaModel: profesorModel.getMateriaModelList()){
+                MateriaDto materiaDto = new MateriaDto();
+                materiaDto.setId(materiaModel.getId());
+                materiaDto.setName(materiaModel.getName());
+                materiaDtos.add(materiaDto);
+
+            }
+            profesorDto.setMateriaModelList(materiaDtos);
             profesorDtos.add(profesorDto);
         }
         return profesorDtos;
@@ -81,6 +90,15 @@ public class ProfesorService extends UserDetailService {
             profesorDto.setPassword(profesorModel.getPassword());
             profesorDto.setName(profesorModel.getName());
             profesorDto.setPhoneNumber(profesorModel.getPhoneNumber());
+            List<MateriaDto> materiaDtos = new ArrayList<>();
+            for (MateriaModel materiaModel: profesorModel.getMateriaModelList()){
+                MateriaDto materiaDto = new MateriaDto();
+                materiaDto.setId(materiaModel.getId());
+                materiaDto.setName(materiaModel.getName());
+                materiaDtos.add(materiaDto);
+
+            }
+            profesorDto.setMateriaModelList(materiaDtos);
         }
         return profesorDto;
     }

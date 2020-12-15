@@ -31,6 +31,8 @@ import { GroupStudentsComponent } from './groups/components/group-students/group
 import { AddPersonComponent } from './persons/component/add-person/add-person.component';
 import { LoginComponent } from './persons/component/login/login.component';
 import { GroupComponent } from './groups/components/group/group.component';
+import { DateProfComponent } from './dates/components/date-prof/date-prof.component';
+import { DateEvidenceComponent } from './dates/components/date-evidence/date-evidence.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { GroupComponent } from './groups/components/group/group.component';
     GroupStudentsComponent,
     AddPersonComponent,
     LoginComponent,
-    GroupComponent
+    GroupComponent,
+    DateProfComponent,
+    DateEvidenceComponent
   ],
   imports: [
     BrowserModule,

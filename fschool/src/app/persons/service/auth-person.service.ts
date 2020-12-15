@@ -42,11 +42,22 @@ export class AuthPersonService {
     this.personService.getByEmail(username, this.TOKEN_SESSION_ATTRIBUTE_NAME).subscribe(data => {
       this.person = new Person();
       this.person = JSON.parse(data) as Person;
-      console.log(this.person);
+      sessionStorage.setItem(this.USER_DATA_SESSION_ATTRIBUTE_NAME, JSON.stringify(this.person));
       this.isLoggedIn.next(true);
     });
   }
-
+  // tslint:disable-next-line:typedef
+  getLoggedInUserName() {
+    const user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    if (user === null) {
+      return '';
+    }
+    return user;
+  }
+  // tslint:disable-next-line:typedef
+  returnUser(){
+    return JSON.parse(sessionStorage.getItem(this.USER_DATA_SESSION_ATTRIBUTE_NAME));
+  }
   // tslint:disable-next-line:typedef
   logout() {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
@@ -57,15 +68,9 @@ export class AuthPersonService {
     this.username = null;
     this.password = null;
   }
-
-  // tslint:disable-next-line:typedef
-  isUserLoggedIn() {
-    const user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    if (user === null) {
-      this.isLoggedIn.next(false);
-      return false;
-    }
-    this.isLoggedIn.next(true);
-    return true;
+  isUserLoggedIn(): boolean {
+   if (this.TOKEN_SESSION_ATTRIBUTE_NAME !== 'null'){
+     return true;
+   }
   }
 }
